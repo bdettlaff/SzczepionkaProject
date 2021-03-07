@@ -1,0 +1,81 @@
+[
+  {
+    "id": "1",
+    "country": "Poland",
+    "city": "Lodz",
+    "postal code": "91-053",
+    "address": "Bazarowa 9",
+    "name": "Centra Medyczne Medyceusz",
+    "number of available vaccines": "5",
+    "vaccine name": "Moderna"
+  },
+  {
+    "id": "2",
+    "country": "Poland",
+    "city": "Lodz",
+    "postal code": "91-001",
+    "address": "Drewnowska 58",
+    "name": "Centrum Medyczne Enel-Med",
+    "number of available vaccines": "12",
+    "vaccine name": "Pfizer"
+  },
+  {
+    "id": "3",
+    "country": "Poland",
+    "city": "Lodz",
+    "postal code": "93-034",
+    "address": "Milionowa 2G",
+    "name": "Centrum Medyczne LUX MED",
+    "number of available vaccines": "28",
+    "vaccine name": "AstraZeneca"
+  },
+  {
+    "id": "4",
+    "country": "Poland",
+    "city": "Lodz",
+    "postal code": "93-105",
+    "address": "Milionowa 21",
+    "name": "Centrum Medyuczne Medycyna Rodzinna",
+    "number of available vaccines": "0"
+  },
+  {
+    "id": "5",
+    "country": "Poland",
+    "city": "Lodz",
+    "postal code": "90-348",
+    "address": "Jana Kilinskiego 185",
+    "name": "Multi Clinic Centrum Medyczne",
+    "number of available vaccines": "34",
+    "vaccine name": "AstraZeneca"
+  },
+  {
+    "id": "6",
+    "country": "Poland",
+    "city": "Lodz",
+    "postal code": "90-368",
+    "address": "al. Marszalka Jozefa Pilsudskiego 3",
+    "name": "Centrum Medicover",
+    "number of available vaccines": "19",
+    "vaccine name": "Moderna"
+  },
+  {
+    "id": "7",
+    "country": "Poland",
+    "city": "Lodz",
+    "postal code": "93-281",
+    "address": "al. Marszalka Edwarda Smiglego-Rydza 20",
+    "name": "Centra Medyczne Medyceusz",
+    "number of available vaccines": "25",
+    "vaccine name": "AstraZeneca"
+  },
+  {
+    "id": "8",
+    "country": "Poland",
+    "city": "Lodz",
+    "postal code": "91-402",
+    "address": "Pomorska 106A",
+    "name": "Centrum Medicover",
+    "number of available vaccines": "17",
+    "vaccine name": "AstraZeneca"
+  }
+]
