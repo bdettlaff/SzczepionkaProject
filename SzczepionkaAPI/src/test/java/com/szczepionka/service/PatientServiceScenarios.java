@@ -1,19 +1,21 @@
 package com.szczepionka.service;
 
+import com.szczepionka.ObjectMother;
 import com.szczepionka.entity.Patient;
 import com.szczepionka.model.PatientDTO;
 import com.szczepionka.repository.PatientRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
-import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import static org.assertj.core.api.BDDAssertions.then;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class PatientServiceScenarios {
@@ -34,20 +36,8 @@ class PatientServiceScenarios {
     @Test
     void addPatient() {
         // Given
-        PatientDTO patientDTO = new PatientDTO();
-        patientDTO.setPesel("00000000000");
-        patientDTO.setIdNumber("IDNUMBER");
-        patientDTO.setPostalCode("00-000");
-        patientDTO.setReferralId("REFERRAL0");
-        patientDTO.setEmail("email@email.com");
-
-        Patient patient = new Patient();
-        patient.setId(0);
-        patient.setPesel("00000000000");
-        patient.setIdNumber("IDNUMBER");
-        patient.setPostalCode("00-000");
-        patient.setReferralId("REFERRAL0");
-        patient.setEmail("email@email.com");
+        PatientDTO patientDTO = ObjectMother.defaultPatientDto();
+        Patient patient = ObjectMother.defaultPateient();
 
         when(patientRepositoryStub.save(any(Patient.class))).thenReturn(patient);
 

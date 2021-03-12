@@ -2,8 +2,7 @@ package com.szczepionka.entity;
 
 import com.sun.istack.NotNull;
 import com.szczepionka.model.AppointmentStatus;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -14,8 +13,11 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Appointment {
 
     @Id
