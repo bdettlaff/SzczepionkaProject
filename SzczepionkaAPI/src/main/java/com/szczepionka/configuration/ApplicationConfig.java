@@ -1,5 +1,6 @@
 package com.szczepionka.configuration;
 
+import com.szczepionka.util.VaccinationLocationsFetcher;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,5 +13,10 @@ public class ApplicationConfig {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
         return modelMapper;
+    }
+
+    @Bean
+    public VaccinationLocationsFetcher vaccinationLocations() {
+        return new VaccinationLocationsFetcher();
     }
 }
