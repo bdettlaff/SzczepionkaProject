@@ -1,0 +1,23 @@
+.container {
+  width: 20%;
+  padding: 10px;
+  margin-top: 12%;
+}
+
+button{
+  margin: auto;
+  width: 115px;
+  height: 60px;
+}
+
+.buttons-space {
+  justify-content: space-between;
+}
+
+.button-container{
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+
