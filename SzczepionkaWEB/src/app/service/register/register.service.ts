@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
-import {Form, FormBuilder} from '@angular/forms';
-import {Router} from '@angular/router';
-import {Registration} from '../../model/Registration';
+import { Router } from '@angular/router';
+import { Registration } from '../../model/Registration';
 
 @Injectable({
   providedIn: 'root'

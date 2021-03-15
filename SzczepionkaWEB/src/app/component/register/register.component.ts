@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
-import {ActivatedRoute, Router} from '@angular/router';
-import {RegisterService} from '../../service/register/register.service';
-import {Registration} from '../../model/Registration';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
+import { RegisterService } from '../../service/register/register.service';
+import { Registration } from '../../model/Registration';
 
 @Component({
   selector: 'app-register',
@@ -12,8 +12,6 @@ import {Registration} from '../../model/Registration';
 export class RegisterComponent implements OnInit {
   registerForm!: FormGroup;
   loading = false;
-  submitted = false;
-
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,8 +36,8 @@ export class RegisterComponent implements OnInit {
 
   mapFormBuilderToRegistrationObject(): Registration {
     return new Registration(this.registerForm.getRawValue().pesel,
-                            this.registerForm.getRawValue().identificator,
-                            this.registerForm.getRawValue().zipcode,
-                            this.registerForm.getRawValue().referral);
+      this.registerForm.getRawValue().identificator,
+      this.registerForm.getRawValue().zipcode,
+      this.registerForm.getRawValue().referral);
   }
 }
