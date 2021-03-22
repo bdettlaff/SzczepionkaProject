@@ -7,12 +7,14 @@ import { RegisterComponent } from './component/register/register.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MapComponent } from './component/map/map.component';
+import { LandingPageComponent } from './component/landing-page/landing-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
-    MapComponent
+    MapComponent,
+    LandingPageComponent
   ],
   imports: [
     BrowserModule,
