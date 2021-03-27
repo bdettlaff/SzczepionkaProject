@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -64,4 +65,14 @@ public class AppointmentService {
     private LocationDetails getLocationDetailsById(long id) {
         return modelMapper.map(vaccinationLocationsFetcher.getById(id), LocationDetails.class);
     }
+
+    public Appointment cancelAppointment(Long appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        if(appointment.isPresent()) {
+            appointment.get().setAppointmentStatus(AppointmentStatus.CANCELLED);
+            return appointmentRepository.save(appointment.get());
+        }
+        return null;
+    }
+
 }

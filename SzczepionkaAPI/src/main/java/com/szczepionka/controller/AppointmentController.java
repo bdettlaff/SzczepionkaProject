@@ -3,10 +3,8 @@ package com.szczepionka.controller;
 import com.szczepionka.entity.Appointment;
 import com.szczepionka.model.PatientDTO;
 import com.szczepionka.service.AppointmentService;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AppointmentController {
@@ -21,4 +19,14 @@ public class AppointmentController {
     Appointment newAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) {
         return appointmentService.newAppointment(patientDTO, locationId);
     }
+
+    @PatchMapping("/appointment/{appointmentId}")
+    public ResponseEntity<Appointment> cancelAppointment(@PathVariable Long appointmentId) {
+        Appointment cancelAppointment = appointmentService.cancelAppointment(appointmentId);
+        if(cancelAppointment != null) {
+            return ResponseEntity.ok().body(cancelAppointment);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
 }
