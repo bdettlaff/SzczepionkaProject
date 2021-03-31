@@ -1,6 +1,7 @@
 package com.szczepionka.controller;
 
 import com.szczepionka.entity.Appointment;
+import com.szczepionka.model.AppointmentDetailsDTO;
 import com.szczepionka.model.PatientDTO;
 import com.szczepionka.service.AppointmentService;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class AppointmentController {
     }
 
     @PostMapping("/appointment/{locationId}")
-    Appointment newAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) {
+    public Appointment newAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) {
         return appointmentService.newAppointment(patientDTO, locationId);
     }
 
@@ -25,6 +26,15 @@ public class AppointmentController {
         Appointment cancelAppointment = appointmentService.cancelAppointment(appointmentId);
         if(cancelAppointment != null) {
             return ResponseEntity.ok().body(cancelAppointment);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/appointment/{appointmentId}") //todo change appointmentId to radnom-generated uuid (to be send by email)
+    public ResponseEntity<AppointmentDetailsDTO> getAppointmentDetails(@PathVariable Long appointmentId) {
+        AppointmentDetailsDTO appointmentDetails = appointmentService.getAppointmentDetails(appointmentId);
+        if(appointmentDetails != null) {
+            return ResponseEntity.ok().body(appointmentDetails);
         }
         return ResponseEntity.notFound().build();
     }

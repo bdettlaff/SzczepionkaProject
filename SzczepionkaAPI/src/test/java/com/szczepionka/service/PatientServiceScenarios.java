@@ -4,6 +4,7 @@ import com.szczepionka.ObjectMother;
 import com.szczepionka.entity.Patient;
 import com.szczepionka.model.PatientDTO;
 import com.szczepionka.repository.PatientRepository;
+import com.szczepionka.util.PatientLinkGenerator;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
@@ -21,6 +22,7 @@ import static org.mockito.Mockito.when;
 class PatientServiceScenarios {
 
     private PatientService patientService;
+    private PatientLinkGenerator patientLinkGenerator;
 
     @Mock
     private PatientRepository patientRepositoryStub;
@@ -30,7 +32,7 @@ class PatientServiceScenarios {
         ModelMapper modelMapper = new ModelMapper();
         modelMapper.getConfiguration().setAmbiguityIgnored(true);
         patientRepositoryStub = mock(PatientRepository.class);
-        this.patientService = new PatientService(patientRepositoryStub, modelMapper);
+        this.patientService = new PatientService(patientRepositoryStub, modelMapper, patientLinkGenerator);
     }
 
     @Test

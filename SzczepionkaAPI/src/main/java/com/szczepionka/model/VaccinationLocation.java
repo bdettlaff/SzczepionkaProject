@@ -27,5 +27,5 @@ public class VaccinationLocation {
     private int numberOfAvailableVaccines;
 
     @SerializedName("vaccine name")
-    private String vaccineName;
+    private VaccinationBrandt vaccinationBrandt;
 }
