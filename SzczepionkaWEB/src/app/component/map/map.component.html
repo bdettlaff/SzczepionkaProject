@@ -5,32 +5,22 @@
 <pre>Numer skierowania: {{registerForm.referral}}</pre>
 
 -->
-<h1>Angular Google Maps (AGM) Demo</h1>
-<p><a href="https://angular-maps.com/" target="_blank">Official Website</a></p>
+<nav class="navbar">
+</nav>
 
-<agm-map [latitude]="lat"
-         [longitude]="lng">
+<div class="container">
+  <agm-map [latitude]="lat"
+           [longitude]="lng">
 
-  <!-- <agm-marker
-      *ngFor="let m of markers; let i = index"
-      (markerClick)="clickedMarker(m.label, i)"
-      [latitude]="m.lat"
-      [longitude]="m.lng"
-      [label]="m.label"
-      [markerDraggable]="m.draggable"
-      (dragEnd)="markerDragEnd(m, $event)">
+    <agm-polygon
+      [paths]="polygon"
+    ></agm-polygon>
 
-    <agm-info-window>
-      <strong>InfoWindow content</strong>
-    </agm-info-window>
-
-  </agm-marker> -->
-
-<!--  <agm-polygon
-    [paths]="polygon"
-  ></agm-polygon>-->
-
-</agm-map>
-
-<input [(ngModel)]=code />
-<button (click)="searchCode()">search</button>
+  </agm-map>
+</div>
+<div class="container">
+  <div class="form-group" >
+    <input class="form-control" [(ngModel)]=code>
+    <button class="btn btn-primary btn-color" (click)="searchCode()">Szukaj</button>
+  </div>
+</div>

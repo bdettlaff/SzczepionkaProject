@@ -1,3 +1,44 @@
 agm-map {
   height: 400px;
 }
+
+nav {
+  background-color: #7952B3;
+}
+
+input{
+  margin-top: 5px;
+}
+
+button{
+  margin-top: 5px;
+  width: 115px;
+  height: 60px;
+}
+
+.form-control{
+  width: 115px;
+}
+
+.btn-color{
+  background-color: #7952B3;
+  border-color: #7952B3;
+}
+
+.container {
+  margin-top: 5px;
+  width: 60%;
+  text-align:center;
+}
+
+.form-group button{
+  display: inline-block;
+  padding: 20px;
+}
+
+.form-group input{
+  display: inline-block;
+  padding: 20px;
+  margin-left: 5px;
+  margin-right: 5px;
+}
