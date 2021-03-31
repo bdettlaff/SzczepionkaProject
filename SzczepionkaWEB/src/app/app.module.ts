@@ -8,6 +8,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MapComponent } from './component/map/map.component';
 import { LandingPageComponent } from './component/landing-page/landing-page.component';
+import { HttpClientModule } from '@angular/common/http';
+import { AgmCoreModule } from '@agm/core';
 
 @NgModule({
   declarations: [
@@ -20,8 +22,12 @@ import { LandingPageComponent } from './component/landing-page/landing-page.comp
     BrowserModule,
     AppRoutingModule,
     NgbModule,
+    HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyBTGdPfWoNbQ_qs6Ly3MO_kbKRMKBZY4_c'
+    })
   ],
   providers: [],
   bootstrap: [AppComponent]

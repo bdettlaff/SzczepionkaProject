@@ -1,6 +1,36 @@
+<!--
 <pre>PESEL: {{registerForm.pesel}} </pre>
 <pre>Dowód: {{registerForm.identificator}}</pre>
 <pre>Kod pocztowy: {{registerForm.zipcode}}</pre>
 <pre>Numer skierowania: {{registerForm.referral}}</pre>
 
+-->
+<h1>Angular Google Maps (AGM) Demo</h1>
+<p><a href="https://angular-maps.com/" target="_blank">Official Website</a></p>
 
+<agm-map [latitude]="lat"
+         [longitude]="lng">
+
+  <!-- <agm-marker
+      *ngFor="let m of markers; let i = index"
+      (markerClick)="clickedMarker(m.label, i)"
+      [latitude]="m.lat"
+      [longitude]="m.lng"
+      [label]="m.label"
+      [markerDraggable]="m.draggable"
+      (dragEnd)="markerDragEnd(m, $event)">
+
+    <agm-info-window>
+      <strong>InfoWindow content</strong>
+    </agm-info-window>
+
+  </agm-marker> -->
+
+<!--  <agm-polygon
+    [paths]="polygon"
+  ></agm-polygon>-->
+
+</agm-map>
+
+<input [(ngModel)]=code />
+<button (click)="searchCode()">search</button>
