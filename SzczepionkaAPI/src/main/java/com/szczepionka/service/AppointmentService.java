@@ -36,8 +36,8 @@ public class AppointmentService {
 
         Appointment appointment = Appointment.builder()
                 .id(patient.getId()) //FIXME patientID always 0
-                .appointmentDate(createAppointmentDate()) //TODO change from random to date selected by user
-                .appointmentTime(createAppointmentTime()) //todo change from random to time selected by user
+                .appointmentDate(createAppointmentDate())
+                .appointmentTime(createAppointmentTime())
                 .appointmentStatus(AppointmentStatus.PLANNED)
                 .locationDetails(getLocationDetailsById(locationId))
                 .build();

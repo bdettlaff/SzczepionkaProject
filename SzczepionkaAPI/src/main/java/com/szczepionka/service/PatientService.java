@@ -16,12 +16,10 @@ public class PatientService {
 
     private final PatientRepository patientRepository;
     private final ModelMapper modelMapper;
-    private final PatientLinkGenerator patientLinkGenerator;
 
-    public PatientService(PatientRepository patientRepository, ModelMapper modelMapper, PatientLinkGenerator patientLinkGenerator) {
+    public PatientService(PatientRepository patientRepository, ModelMapper modelMapper) {
         this.patientRepository = patientRepository;
         this.modelMapper = modelMapper;
-        this.patientLinkGenerator = patientLinkGenerator;
     }
 
     public Patient addPatient(PatientDTO patientDTO) {
@@ -36,7 +34,7 @@ public class PatientService {
 
     //TODO to use while creating email message to patient - can be moved to dedicated class
     public URL generatePatientLink(UUID patientUUID) {
-        return patientLinkGenerator.generateIndividualPatientUrl(patientUUID);
+        return PatientLinkGenerator.generateIndividualPatientUrl(patientUUID);
     }
 
 }

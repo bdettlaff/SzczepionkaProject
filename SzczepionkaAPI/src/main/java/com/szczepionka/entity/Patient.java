@@ -7,7 +7,11 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.UUID;
 
 @Entity
@@ -23,6 +27,7 @@ public class Patient {
     private long id;
 
     @Column(updatable = false, nullable = false, unique = true)
+    @NotNull
     private UUID uuid = UUID.randomUUID();
 
     @NotNull
