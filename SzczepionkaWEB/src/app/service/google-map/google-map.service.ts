@@ -12,7 +12,7 @@ export class GoogleMapService {
   }
 
   callGeoAPI(code: string): Observable<any> {
-    const apiURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${code}&key=AIzaSyAgDUII_kvGfCJNmu4qhhzjl8YNzblV9Ng`;
+    const apiURL = `https://maps.googleapis.com/maps/api/geocode/json?address=${code}&key=#`;
     return this.http.get(apiURL);
   }
 
