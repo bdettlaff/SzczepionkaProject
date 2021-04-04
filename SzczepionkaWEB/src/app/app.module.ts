@@ -8,20 +8,24 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { MapComponent } from './component/map/map.component';
 import { LandingPageComponent } from './component/landing-page/landing-page.component';
+import { AppointmentDetailsComponent } from './component/appointment-details/appointment-details.component';
+import { HttpClientModule} from "@angular/common/http";
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     MapComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    AppointmentDetailsComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
