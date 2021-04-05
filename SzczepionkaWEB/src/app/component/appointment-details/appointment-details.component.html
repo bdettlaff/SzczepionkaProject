@@ -1,7 +1,49 @@
-<pre>Adres: {{appointment.appointmentLocationAddress}} </pre>
-<pre>Miasto: {{appointment.appointmentLocationCity}}</pre>
-<pre>Nazwa lokacji: {{appointment.appointmentLocationName}}</pre>
-<pre>Kod pocztowy: {{appointment.appointmentLocationPostalCode}}</pre>
-<pre>Status: {{appointment.appointmentStatus}}</pre>
-<pre>Marka szczepionki: {{appointment.vaccinationBrandt}}</pre>
+<head>
+    <meta charset="utf-8"/>
+    <title>Table Style</title>
+    <meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;">
+</head>
 
+<div class="container">
+    <body>
+    <div class="table-title">
+        <h3>Szczegółowe informacje o szczepieniu</h3>
+    </div>
+    <table class="table-fill">
+        <tbody class="table-hover">
+        <tr>
+            <td class="text-left">Miejsce szczepienia</td>
+            <td class="text-left">{{appointment.appointmentLocationName}}</td>
+        </tr>
+        <tr>
+            <td class="text-left">Adres</td>
+            <td class="text-left">{{appointment.appointmentLocationAddress}}</td>
+        </tr>
+        <tr>
+            <td class="text-left">Miasto</td>
+            <td class="text-left">{{appointment.appointmentLocationCity}}</td>
+        </tr>
+        <tr>
+            <td class="text-left">Kod pocztowy</td>
+            <td class="text-left">{{appointment.appointmentLocationPostalCode}}</td>
+        </tr>
+        <tr>
+            <td class="text-left">Status wizyty</td>
+            <td class="text-left">{{appointment.appointmentStatus}}</td>
+        </tr>
+        <tr>
+            <td class="text-left">Szczepionka</td>
+            <td class="text-left">{{appointment.vaccinationBrandt}}</td>
+        </tr>
+        </tbody>
+    </table>
+    </body>
+    <div class="form-group button-container buttons-space">
+        <button type="button" class="btn btn-primary" (click)="cancelAppointment()">
+            Anuluj wizytę
+        </button>
+        <button class="btn btn-secondary" (click)="viewVaccinationDetails()">
+            Informacje o szczepionce
+        </button>
+    </div>
+</div>
