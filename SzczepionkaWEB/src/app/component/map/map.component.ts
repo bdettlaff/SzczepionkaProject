@@ -43,6 +43,7 @@ export class MapComponent implements OnInit {
   searchCode(): any {
     this.googleMapService.callGeoAPI(this.code).subscribe(res => {
       this.result = res;
+      console.log(this.result);
     }, error => {
       console.log(error);
 
