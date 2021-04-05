@@ -5,6 +5,7 @@ import com.szczepionka.entity.LocationDetails;
 import com.szczepionka.entity.Patient;
 import com.szczepionka.model.AppointmentStatus;
 import com.szczepionka.model.PatientDTO;
+import com.szczepionka.model.VaccinationBrandt;
 import com.szczepionka.model.VaccinationLocation;
 
 import java.time.LocalDate;
@@ -39,7 +40,7 @@ public class ObjectMother {
                 .appointmentDate(LocalDate.now().plusDays(1))
                 .appointmentTime(LocalTime.of(10, 0))
                 .appointmentStatus(AppointmentStatus.PLANNED)
-                .locationDetails(new LocationDetails("Lodz", "91-053", "Bazarowa 9", "Centra Medyczne Medyceusz"))
+                .locationDetails(new LocationDetails("Lodz", "91-053", "Bazarowa 9", "Centra Medyczne Medyceusz", VaccinationBrandt.MODERNA))
                 .build();
     }
 
@@ -52,7 +53,7 @@ public class ObjectMother {
                 .address("Bazarowa 9")
                 .name("Centra Medyczne Medyceusz")
                 .numberOfAvailableVaccines(5)
-                .vaccineName("Moderna")
+                .vaccinationBrandt(VaccinationBrandt.MODERNA)
                 .build();
     }
 }
