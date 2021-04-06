@@ -3,6 +3,7 @@ package com.szczepionka.service;
 import com.szczepionka.entity.Appointment;
 import com.szczepionka.entity.LocationDetails;
 import com.szczepionka.entity.Patient;
+import com.szczepionka.model.AppointmentDetailsDTO;
 import com.szczepionka.model.AppointmentStatus;
 import com.szczepionka.model.PatientDTO;
 import com.szczepionka.repository.AppointmentRepository;
@@ -12,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.Optional;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -33,7 +35,7 @@ public class AppointmentService {
         Patient patient = patientService.addPatient(patientDTO);
 
         Appointment appointment = Appointment.builder()
-                .id(patient.getId())
+                .id(patient.getId()) //FIXME patientID always 0
                 .appointmentDate(createAppointmentDate())
                 .appointmentTime(createAppointmentTime())
                 .appointmentStatus(AppointmentStatus.PLANNED)
@@ -64,4 +66,35 @@ public class AppointmentService {
     private LocationDetails getLocationDetailsById(long id) {
         return modelMapper.map(vaccinationLocationsFetcher.getById(id), LocationDetails.class);
     }
+
+    public Appointment cancelAppointment(Long appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        if(appointment.isPresent()) {
+            appointment.get().setAppointmentStatus(AppointmentStatus.CANCELLED);
+            return appointmentRepository.save(appointment.get());
+        }
+        return null;
+    }
+
+    public AppointmentDetailsDTO getAppointmentDetails(Long appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        if(appointment.isPresent()) {
+            LocationDetails locationDetails = appointment.get().getLocationDetails();
+            Patient patient = patientService.findPatient(appointment.get().getPatientId());
+
+            return AppointmentDetailsDTO.builder()
+                    .appointmentLocationName(locationDetails.getLocationName())
+                    .appointmentLocationAddress(locationDetails.getAddress())
+                    .appointmentLocationPostalCode(locationDetails.getPostalCode())
+                    .appointmentLocationCity(locationDetails.getCity())
+                    .vaccinationBrandt(locationDetails.getVaccinationBrandt())
+                    .appointmentStatus(appointment.get().getAppointmentStatus())
+                    .appointmentDate(appointment.get().getAppointmentDate())
+                    .appointmentTime(appointment.get().getAppointmentTime())
+                    .patientReferralId(patient != null ? patient.getReferralId() : null)
+                    .build();
+        }
+        return null;
+    }
+
 }

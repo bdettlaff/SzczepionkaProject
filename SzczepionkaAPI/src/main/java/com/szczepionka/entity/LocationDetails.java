@@ -1,5 +1,6 @@
 package com.szczepionka.entity;
 
+import com.szczepionka.model.VaccinationBrandt;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,4 +22,6 @@ public class LocationDetails {
     private String address;
 
     private String locationName;
+
+    private VaccinationBrandt vaccinationBrandt;
 }
