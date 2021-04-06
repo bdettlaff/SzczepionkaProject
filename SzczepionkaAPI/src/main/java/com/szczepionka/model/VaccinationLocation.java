@@ -5,6 +5,8 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @Builder
@@ -28,4 +30,10 @@ public class VaccinationLocation {
 
     @SerializedName("vaccine name")
     private VaccinationBrandt vaccinationBrandt;
+
+    @SerializedName("lat")
+    private BigDecimal latitude;
+
+    @SerializedName("long")
+    private BigDecimal longitude;
 }

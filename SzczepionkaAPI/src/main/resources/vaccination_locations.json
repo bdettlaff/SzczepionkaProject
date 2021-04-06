@@ -7,7 +7,9 @@
     "address": "Bazarowa 9",
     "name": "Centra Medyczne Medyceusz",
     "number of available vaccines": "5",
-    "vaccine name": "Moderna"
+    "vaccine name": "Moderna",
+    "lat": "51.784550",
+    "long": "19.448190"
   },
   {
     "id": "2",
@@ -17,7 +19,9 @@
     "address": "Drewnowska 58",
     "name": "Centrum Medyczne Enel-Med",
     "number of available vaccines": "12",
-    "vaccine name": "Pfizer"
+    "vaccine name": "Pfizer",
+    "lat": "51.780060",
+    "long": "19.449341"
   },
   {
     "id": "3",
@@ -27,7 +31,9 @@
     "address": "Milionowa 2G",
     "name": "Centrum Medyczne LUX MED",
     "number of available vaccines": "28",
-    "vaccine name": "AstraZeneca"
+    "vaccine name": "AstraZeneca",
+    "lat": "51.746580",
+    "long": "19.464050"
   },
   {
     "id": "4",
@@ -36,7 +42,9 @@
     "postal code": "93-105",
     "address": "Milionowa 21",
     "name": "Centrum Medyuczne Medycyna Rodzinna",
-    "number of available vaccines": "0"
+    "number of available vaccines": "0",
+    "lat": "51.7488780",
+    "long": "19.473550"
   },
   {
     "id": "5",
@@ -46,7 +54,9 @@
     "address": "Jana Kilinskiego 185",
     "name": "Multi Clinic Centrum Medyczne",
     "number of available vaccines": "34",
-    "vaccine name": "AstraZeneca"
+    "vaccine name": "AstraZeneca",
+    "lat": "51.752322",
+    "long": "19.472447"
   },
   {
     "id": "6",
@@ -56,7 +66,9 @@
     "address": "al. Marszalka Jozefa Pilsudskiego 3",
     "name": "Centrum Medicover",
     "number of available vaccines": "19",
-    "vaccine name": "Moderna"
+    "vaccine name": "Moderna",
+    "lat": "51.759080",
+    "long": "19.460810"
   },
   {
     "id": "7",
@@ -66,7 +78,9 @@
     "address": "al. Marszalka Edwarda Smiglego-Rydza 20",
     "name": "Centra Medyczne Medyceusz",
     "number of available vaccines": "25",
-    "vaccine name": "AstraZeneca"
+    "vaccine name": "AstraZeneca",
+    "lat": "51.751290",
+    "long": "19.490570"
   },
   {
     "id": "8",
@@ -76,6 +90,8 @@
     "address": "Pomorska 106A",
     "name": "Centrum Medicover",
     "number of available vaccines": "17",
-    "vaccine name": "AstraZeneca"
+    "vaccine name": "AstraZeneca",
+    "lat": "51.779560",
+    "long": "19.483220"
   }
 ]
