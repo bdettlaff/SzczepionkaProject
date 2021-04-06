@@ -44,4 +44,5 @@ class LocationsServiceScenarios {
         // Then
         then(result).hasSize(quantityOfNearestLocations);
     }
+
 }

@@ -36,4 +36,5 @@ class DistanceCalculatorScenarios {
         // Then
         then(distanceInMeters.toPlainString()).isEqualTo(BigDecimal.valueOf(43720).toPlainString());
     }
+
 }
