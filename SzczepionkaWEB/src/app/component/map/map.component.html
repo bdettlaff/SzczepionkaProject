@@ -1,26 +1,54 @@
-<!--
-<pre>PESEL: {{registerForm.pesel}} </pre>
-<pre>Dowód: {{registerForm.identificator}}</pre>
-<pre>Kod pocztowy: {{registerForm.zipcode}}</pre>
-<pre>Numer skierowania: {{registerForm.referral}}</pre>
-
--->
 <nav class="navbar">
 </nav>
 
 <div class="container">
-  <agm-map [latitude]="lat"
-           [longitude]="lng">
-
-    <agm-polygon
-      [paths]="polygon"
-    ></agm-polygon>
-
-  </agm-map>
+  <h2>Dostępne lokalizacje dla kodu {{registerForm.zipcode}}</h2>
 </div>
+
 <div class="container">
-  <div class="form-group" >
-    <input class="form-control" [(ngModel)]=code>
-    <button class="btn btn-primary btn-color" (click)="searchCode()">Szukaj</button>
-  </div>
+  <table mat-table [dataSource]="resultMock"  class="mat-elevation-z8" matSort>
+
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Kraj</th>
+      <td mat-cell *matCellDef="let element"> {{element.country}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="city">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Miasto</th>
+      <td mat-cell *matCellDef="let element"> {{element.city}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="postalCode">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Kod pocztowy</th>
+      <td mat-cell *matCellDef="let element"> {{element.postalCode}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="address">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Adres</th>
+      <td mat-cell *matCellDef="let element"> {{element.address}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Nazwa placówki</th>
+      <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="numberOfAvailableVaccines">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Dostępne szczepionki</th>
+      <td mat-cell *matCellDef="let element"> {{element.numberOfAvailableVaccines}}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="vaccineName">
+      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Nazwa szczepionki</th>
+      <td mat-cell *matCellDef="let element"> {{element.vaccineName}}</td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+    <ng-container matColumnDef="selectLocation" mat-sort-header>
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element"> <button class="btn btn-primary btn-color" (click)="selectLocation(element.id)"> Wybierz </button></td>
+    </ng-container>
+  </table>
 </div>

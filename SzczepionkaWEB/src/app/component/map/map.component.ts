@@ -1,8 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { RegisterService } from '../../service/register/register.service';
-import { Marker } from '../../model/Marker';
 import { GoogleMapService } from '../../service/google-map/google-map.service';
-import { Coordinate } from '../../model/Coordinate';
+import { Location } from '../../model/Location';
 
 @Component({
   selector: 'app-map',
@@ -11,84 +10,58 @@ import { Coordinate } from '../../model/Coordinate';
 })
 export class MapComponent implements OnInit {
   registerForm: any;
-  code: string;
-  address: string;
-  center: Marker;
-  coordinates: Coordinate[];
-  polygon: Marker[];
   result: any;
-  lat = 51.780060;
-  lng = 19.449341;
+  displayedColumns: string[] = ['country', 'city', 'postalCode', 'address', 'name', 'numberOfAvailableVaccines', 'vaccineName', 'selectLocation'];
+
+  resultMock: Location[] = [{
+    id: 1,
+    country: 'Poland',
+    city: 'Lodz',
+    postalCode: '91-053',
+    address: 'Bazarowa 9',
+    name: 'Centra Medyczne Medyceusz',
+    numberOfAvailableVaccines: 5,
+    vaccineName: 'Moderna'
+  },
+    {
+      id: 2,
+      country: 'Poland',
+      city: 'Lodz',
+      postalCode: '91-001',
+      address: 'Drewnowska 58',
+      name: 'Centrum Medyczne Enel-Med',
+      numberOfAvailableVaccines: 12,
+      vaccineName: 'Pfizer'
+    },
+    {
+      id: 3,
+      country: 'Poland',
+      city: 'Lodz',
+      postalCode: '93-034',
+      address: 'Milionowa 2G',
+      name: 'Centrum Medyczne LUX MED',
+      numberOfAvailableVaccines: 28,
+      vaccineName: 'AstraZeneca'
+    }];
 
   constructor(private registerService: RegisterService, private googleMapService: GoogleMapService) {
-    this.code = '';
-    this.address = '';
-    this.center = new Marker(this.lat, this.lng);
-    this.polygon = [];
-    this.coordinates = [];
   }
 
   ngOnInit(): void {
     this.registerForm = this.registerService.getRegisterForm();
+    //this.sendPostCode();
   }
 
-  clickedMarker(label: string, index: number): any {
-    console.log(`clicked the marker: ${label || index}`);
-  }
-
-  markerDragEnd(m: Marker, $event: MouseEvent): any {
-    console.log('dragEnd', m, $event);
-  }
-
-  searchCode(): any {
-    this.googleMapService.callGeoAPI(this.code).subscribe(res => {
-      this.result = res;
-    }, error => {
-      console.log(error);
-
-    }, () => {
-      this.address = this.result.results[0].formatted_address;
-      this.center = this.result.results[0].geometry.location;
-      this.lat = this.center.lat;
-      this.lng = this.center.lng;
-      this.coordinates.push(
-        new Coordinate(
-          this.result.results[0].geometry.bounds.northeast.lat,
-          this.result.results[0].geometry.bounds.northeast.lng,
-        ),
-        new Coordinate(
-          this.result.results[0].geometry.bounds.southwest.lat,
-          this.result.results[0].geometry.bounds.southwest.lng,
-        ));
-
-      this.polygon = [
-        {
-          lat: this.result.results[0].geometry.bounds.northeast.lat,
-          lng: this.result.results[0].geometry.bounds.northeast.lng
-        },
-        {
-          lat: this.result.results[0].geometry.bounds.northeast.lat,
-          lng: this.result.results[0].geometry.bounds.southwest.lng
-        },
-        {
-          lat: this.result.results[0].geometry.bounds.southwest.lat,
-          lng: this.result.results[0].geometry.bounds.southwest.lng
-        },
-        {
-          lat: this.result.results[0].geometry.bounds.southwest.lat,
-          lng: this.result.results[0].geometry.bounds.northeast.lng
-        },
-      ];
-      this.sendCoordinates();
-    });
-
-  }
-
-  sendCoordinates(): any {
-    this.googleMapService.sendCoordinates(this.coordinates).subscribe(
+  sendPostCode(): any {
+    this.googleMapService.sendPostCode(this.registerForm.zipcode).subscribe(
       () => {
         console.log('Coordinates passed to service.');
       }
     );
   }
+
+  selectLocation(id: number): void {
+    console.log(id);
+  }
+
 }
