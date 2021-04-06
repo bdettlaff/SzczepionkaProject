@@ -20,28 +20,15 @@ export class AppointmentDetailsComponent implements OnInit {
     ngOnInit(): void {
         this.patientUUID = this.route.snapshot.paramMap.get('patientUUID');
         this.getAppointment();
-        //53579dae-b861-4186-826a-dc534d66e44e UUID to test component
-        /*    this.appointment = new AppointmentDetails(
-              'patientReferral-123',
-              'Moderna',
-              'PLANNED',
-              '15-05-2021',
-              '8:30',
-              'Lodz',
-              '12-345',
-              'Streeeeeeet 11/223',
-              'Przychodnia XYZ');*/
     }
 
     getAppointment(): void {
         this.appointmentService.getAppointment(this.patientUUID).subscribe(
             data => {
                 this.appointment = data;
-
             }, error => {
                 console.log(error);
             }, () => {
-                console.log(this.appointment);
             });
     }
 
