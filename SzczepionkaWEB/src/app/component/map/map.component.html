@@ -9,37 +9,37 @@
   <table mat-table [dataSource]="resultMock"  class="mat-elevation-z8" matSort>
 
     <ng-container matColumnDef="country">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Kraj</th>
+      <th mat-header-cell *matHeaderCellDef  >Kraj</th>
       <td mat-cell *matCellDef="let element"> {{element.country}}</td>
     </ng-container>
 
     <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Miasto</th>
+      <th mat-header-cell *matHeaderCellDef>Miasto</th>
       <td mat-cell *matCellDef="let element"> {{element.city}}</td>
     </ng-container>
 
     <ng-container matColumnDef="postalCode">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Kod pocztowy</th>
+      <th mat-header-cell *matHeaderCellDef >Kod pocztowy</th>
       <td mat-cell *matCellDef="let element"> {{element.postalCode}}</td>
     </ng-container>
 
     <ng-container matColumnDef="address">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Adres</th>
+      <th mat-header-cell *matHeaderCellDef>Adres</th>
       <td mat-cell *matCellDef="let element"> {{element.address}}</td>
     </ng-container>
 
     <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Nazwa placówki</th>
+      <th mat-header-cell *matHeaderCellDef>Nazwa placówki</th>
       <td mat-cell *matCellDef="let element"> {{element.name}}</td>
     </ng-container>
 
     <ng-container matColumnDef="numberOfAvailableVaccines">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Dostępne szczepionki</th>
+      <th mat-header-cell *matHeaderCellDef>Dostępne szczepionki</th>
       <td mat-cell *matCellDef="let element"> {{element.numberOfAvailableVaccines}}</td>
     </ng-container>
 
     <ng-container matColumnDef="vaccineName">
-      <th mat-header-cell *matHeaderCellDef  mat-sort-header>Nazwa szczepionki</th>
+      <th mat-header-cell *matHeaderCellDef>Nazwa szczepionki</th>
       <td mat-cell *matCellDef="let element"> {{element.vaccineName}}</td>
     </ng-container>
 
