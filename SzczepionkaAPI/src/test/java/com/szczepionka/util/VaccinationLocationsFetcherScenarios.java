@@ -14,7 +14,7 @@ class VaccinationLocationsFetcherScenarios {
     @Test
     void loadJson() {
         // Given
-        VaccinationLocationsFetcher vaccinationLocationsFetcher = new VaccinationLocationsFetcher();
+        VaccinationLocationsFetcher vaccinationLocationsFetcher = new VaccinationLocationsFetcher("src/main/resources/vaccination_locations.json");
 
         // When
         Map<Long, VaccinationLocation> vaccinationLocations = vaccinationLocationsFetcher.getAll();

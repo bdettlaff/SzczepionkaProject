@@ -1,6 +1,8 @@
 package com.szczepionka.configuration;
 
+import com.szczepionka.util.DistanceCalculator;
 import com.szczepionka.util.VaccinationLocationsFetcher;
+import com.szczepionka.util.ZipcodeConverter;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,5 +20,15 @@ public class ApplicationConfig {
     @Bean
     public VaccinationLocationsFetcher vaccinationLocations() {
         return new VaccinationLocationsFetcher();
+    }
+
+    @Bean
+    public DistanceCalculator distanceCalculator() {
+        return new DistanceCalculator();
+    }
+
+    @Bean
+    public ZipcodeConverter zipcodeConverter() {
+        return new ZipcodeConverter();
     }
 }
