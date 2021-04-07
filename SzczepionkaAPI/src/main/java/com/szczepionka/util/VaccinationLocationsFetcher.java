@@ -13,15 +13,21 @@ import java.util.stream.Collectors;
 
 public class VaccinationLocationsFetcher {
 
+    private final static String PATH_TO_MOCK_LOCATIONS_FILE = "SzczepionkaAPI/src/main/resources/vaccination_locations.json";
+
     private Map<Long, VaccinationLocation> vaccinationLocations;
 
     public VaccinationLocationsFetcher() {
-        fetchInitialData();
+        fetchInitialData(PATH_TO_MOCK_LOCATIONS_FILE);
+    }
+
+    public VaccinationLocationsFetcher(String path) {
+        fetchInitialData(path);
     }
 
     @SuppressWarnings("unchecked")
-    private Map<Long, VaccinationLocation> fetchInitialData() {
-        try (FileReader reader = new FileReader("src/main/resources/vaccination_locations.json")) {
+    private Map<Long, VaccinationLocation> fetchInitialData(String path) {
+        try (FileReader reader = new FileReader(path)) {
             JSONParser jsonParser = new JSONParser();
             JSONArray jsonArray = (JSONArray) jsonParser.parse(reader);
             Gson gson = new Gson();
