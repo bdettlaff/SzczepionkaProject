@@ -35,7 +35,7 @@ public class AppointmentService {
         Patient patient = patientService.addPatient(patientDTO);
 
         Appointment appointment = Appointment.builder()
-                .id(patient.getId()) //FIXME patientID always 0
+                .patientId(patient.getId())
                 .appointmentDate(createAppointmentDate())
                 .appointmentTime(createAppointmentTime())
                 .appointmentStatus(AppointmentStatus.PLANNED)
