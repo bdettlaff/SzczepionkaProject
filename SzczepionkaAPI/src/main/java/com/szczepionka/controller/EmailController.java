@@ -20,13 +20,13 @@ public class EmailController {
     }
 
 
-@RequestMapping(value ="/send/{patientId}",method = RequestMethod.POST)
-public ResponseEntity<String> sendEmail(@PathVariable Long patientId) throws AddressException, MessagingException, IOException {
-    PatientDTO patientDTO = emailService.sendmail(patientId);
-    if (patientDTO != null) {
-        return ResponseEntity.ok("Email sent");
+    @RequestMapping(value = "/send/{patientId}", method = RequestMethod.POST)
+    public ResponseEntity<String> sendEmail(@PathVariable Long patientId) throws AddressException, MessagingException, IOException {
+        PatientDTO patientDTO = emailService.sendMail(patientId);
+        if (patientDTO != null) {
+            return ResponseEntity.ok("Email sent");
+        }
+        return ResponseEntity.ok("There is no such a patient");
     }
-    return ResponseEntity.ok("There is no such a patient");
-}
 
 }
