@@ -7,7 +7,7 @@ export class Location {
   address: string;
   name: string;
   numberOfAvailableVaccines: number;
-  vaccineName: string;
+  vaccinationBrandt: string;
 
   constructor(id: number,
               country: string,
@@ -16,7 +16,7 @@ export class Location {
               address: string,
               name: string,
               numberOfAvailableVaccines: number,
-              vaccineName: string) {
+              vaccinationBrandt: string) {
     this.id = id;
     this.country = country;
     this.city = city;
@@ -24,7 +24,7 @@ export class Location {
     this.address = address;
     this.name = name;
     this.numberOfAvailableVaccines = numberOfAvailableVaccines;
-    this.vaccineName = vaccineName;
+    this.vaccinationBrandt = vaccinationBrandt;
   }
 
 
