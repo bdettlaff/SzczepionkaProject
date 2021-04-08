@@ -10,10 +10,10 @@ import { Location } from '../../model/Location';
 })
 export class MapComponent implements OnInit {
   registerForm: any;
-  result: any;
+  result: Location[] = [];
   displayedColumns: string[] = ['country', 'city', 'postalCode', 'address', 'name', 'numberOfAvailableVaccines', 'vaccineName', 'selectLocation'];
 
-  resultMock: Location[] = [{
+/*  resultMock: Location[] = [{
     id: 1,
     country: 'Poland',
     city: 'Lodz',
@@ -28,7 +28,7 @@ export class MapComponent implements OnInit {
       country: 'Poland',
       city: 'Lodz',
       postalCode: '91-001',
-      address: 'Drewnowska 58',
+      address: 'Drewnowska 58',a
       name: 'Centrum Medyczne Enel-Med',
       numberOfAvailableVaccines: 12,
       vaccineName: 'Pfizer'
@@ -42,20 +42,26 @@ export class MapComponent implements OnInit {
       name: 'Centrum Medyczne LUX MED',
       numberOfAvailableVaccines: 28,
       vaccineName: 'AstraZeneca'
-    }];
+    }];*/
 
   constructor(private registerService: RegisterService, private googleMapService: GoogleMapService) {
   }
 
   ngOnInit(): void {
     this.registerForm = this.registerService.getRegisterForm();
-    //this.sendPostCode();
+    this.sendPostCode();
   }
 
   sendPostCode(): any {
     this.googleMapService.sendPostCode(this.registerForm.zipcode).subscribe(
+      data => {
+        this.result = data;
+        console.log(this.result);
+      },
+      error => {
+        console.log(error);
+      },
       () => {
-        console.log('Coordinates passed to service.');
       }
     );
   }

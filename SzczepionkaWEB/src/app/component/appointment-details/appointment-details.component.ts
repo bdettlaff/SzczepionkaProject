@@ -26,7 +26,6 @@ export class AppointmentDetailsComponent implements OnInit {
     this.appointmentService.getAppointment(this.patientUUID).subscribe(
       data => {
         this.appointment = data;
-        console.log(this.appointment);
       }, error => {
         console.log(error);
       }, () => {
