@@ -29,3 +29,7 @@ button{
   border-color: #7952B3;
 }
 
+.btn-color:hover{
+  background-color: #9279c6;
+  border-color: #9279c6;
+}

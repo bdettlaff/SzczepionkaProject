@@ -11,7 +11,6 @@ input{
 }
 
 button{
-  margin-top: 5px;
   width: 115px;
   height: 60px;
 }
@@ -23,6 +22,11 @@ button{
 .btn-color{
   background-color: #7952B3;
   border-color: #7952B3;
+}
+
+.btn-color:hover{
+  background-color: #9279c6;
+  border-color: #9279c6;
 }
 
 .container {
@@ -41,20 +45,6 @@ button{
   padding: 20px;
   margin-left: 5px;
   margin-right: 5px;
-}
-
-button{
-  margin: auto;
-  width: 115px;
-  height: 60px;
-}
-
-button:hover {
-  margin: auto;
-  width: 115px;
-  height: 60px;
-  color: #7952B3;
-  background-color: #FFFFFF;
 }
 
 table{
