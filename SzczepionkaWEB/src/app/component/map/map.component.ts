@@ -13,37 +13,6 @@ export class MapComponent implements OnInit {
   result: Location[] = [];
   displayedColumns: string[] = ['country', 'city', 'postalCode', 'address', 'name', 'numberOfAvailableVaccines', 'vaccineName', 'selectLocation'];
 
-/*  resultMock: Location[] = [{
-    id: 1,
-    country: 'Poland',
-    city: 'Lodz',
-    postalCode: '91-053',
-    address: 'Bazarowa 9',
-    name: 'Centra Medyczne Medyceusz',
-    numberOfAvailableVaccines: 5,
-    vaccineName: 'Moderna'
-  },
-    {
-      id: 2,
-      country: 'Poland',
-      city: 'Lodz',
-      postalCode: '91-001',
-      address: 'Drewnowska 58',a
-      name: 'Centrum Medyczne Enel-Med',
-      numberOfAvailableVaccines: 12,
-      vaccineName: 'Pfizer'
-    },
-    {
-      id: 3,
-      country: 'Poland',
-      city: 'Lodz',
-      postalCode: '93-034',
-      address: 'Milionowa 2G',
-      name: 'Centrum Medyczne LUX MED',
-      numberOfAvailableVaccines: 28,
-      vaccineName: 'AstraZeneca'
-    }];*/
-
   constructor(private registerService: RegisterService, private googleMapService: GoogleMapService) {
   }
 
