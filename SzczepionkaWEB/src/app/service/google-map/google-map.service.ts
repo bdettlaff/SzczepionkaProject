@@ -15,12 +15,12 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class AppointmentDetailsService {
+export class GoogleMapService {
 
   constructor(private http: HttpClient) {
   }
 
-  getAppointment(patientUUID: string): Observable<AppointmentDetails> {
-    return this.http.get<AppointmentDetails>('http://localhost:8080/appointment/' + patientUUID, httpOptions);
+  sendPostCode(postCode: string): Observable<any>{
+    return this.http.get<AppointmentDetails>('http://localhost:8080//location/' + postCode, httpOptions);
   }
 }

@@ -15,6 +15,10 @@ button {
     margin-top: 10px;
 }
 
+.buttons-space {
+  justify-content: space-between;
+}
+
 div.table-title {
     display: block;
     margin: auto;
@@ -69,4 +73,14 @@ td {
 
 td:last-child {
     border-right: 3px;
+}
+
+.btn-color{
+  background-color: #7952B3;
+  border-color: #7952B3;
+}
+
+.btn-color:hover{
+  background-color: #9279c6;
+  border-color: #9279c6;
 }

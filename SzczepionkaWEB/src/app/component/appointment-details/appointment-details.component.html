@@ -1,5 +1,6 @@
+<nav class="navbar">
+</nav>
 <div class="container">
-    <body>
     <div class="table-title">
         <h3>Szczegółowe informacje o szczepieniu</h3>
     </div>
@@ -31,13 +32,14 @@
         </tr>
         </tbody>
     </table>
-    </body>
-    <div class="form-group button-container buttons-space">
-        <button type="button" class="btn btn-primary" (click)="cancelAppointment()">
-            Anuluj wizytę
-        </button>
-        <button class="btn btn-secondary" (click)="viewVaccinationDetails()">
-            Informacje o szczepionce
-        </button>
+    <div class="container">
+      <div class="button-container buttons-space">
+          <button class="btn btn-primary btn-color" (click)="cancelAppointment()">
+              Anuluj wizytę
+          </button>
+          <button class="btn btn-secondary" (click)="viewVaccinationDetails()">
+              Informacje o szczepionce
+          </button>
+      </div>
     </div>
 </div>
