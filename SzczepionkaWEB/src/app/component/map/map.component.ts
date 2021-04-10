@@ -18,14 +18,15 @@ export class MapComponent implements OnInit {
 
   ngOnInit(): void {
     this.registerForm = this.registerService.getRegisterForm();
-    this.sendPostCode();
+    if (this.registerForm) {
+      this.sendPostCode();
+    }
   }
 
   sendPostCode(): any {
     this.googleMapService.sendPostCode(this.registerForm.zipcode).subscribe(
       data => {
         this.result = data;
-        console.log(this.result);
       },
       error => {
         console.log(error);

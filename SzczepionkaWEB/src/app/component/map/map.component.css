@@ -50,3 +50,9 @@ button{
 table{
   width: 100%;
 }
+
+.text{
+  text-align: center;
+  font-weight: bold;
+  font-size: large;
+}
