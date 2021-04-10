@@ -26,7 +26,8 @@ export class RegisterComponent implements OnInit {
       pesel: ['', Validators.required],
       identificator: ['', Validators.required],
       zipcode: ['', Validators.required],
-      referral: ['', Validators.required]
+      referral: ['', Validators.required],
+      email: ['', Validators.required]
     });
   }
 
@@ -38,6 +39,8 @@ export class RegisterComponent implements OnInit {
     return new Registration(this.registerForm.getRawValue().pesel,
       this.registerForm.getRawValue().identificator,
       this.registerForm.getRawValue().zipcode,
-      this.registerForm.getRawValue().referral);
+      this.registerForm.getRawValue().referral,
+      this.registerForm.getRawValue().email
+    );
   }
 }
