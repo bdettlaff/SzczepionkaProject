@@ -1,5 +1,6 @@
 package com.szczepionka.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -20,8 +21,10 @@ public class AppointmentDetailsDTO {
 
     private AppointmentStatus appointmentStatus;
 
+    @JsonFormat(pattern="dd-MM-yyyy")
     private LocalDate appointmentDate;
 
+    @JsonFormat(pattern="HH:mm")
     private LocalTime appointmentTime;
 
     private String appointmentLocationCity;
