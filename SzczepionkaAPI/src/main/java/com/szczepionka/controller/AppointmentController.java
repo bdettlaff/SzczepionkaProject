@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.UUID;
+
 @RestController
 public class AppointmentController {
 
@@ -35,9 +37,9 @@ public class AppointmentController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/appointment/{appointmentId}") //todo change appointmentId to radnom-generated uuid (to be send by email)
-    public ResponseEntity<AppointmentDetailsDTO> getAppointmentDetails(@PathVariable Long appointmentId) {
-        AppointmentDetailsDTO appointmentDetails = appointmentService.getAppointmentDetails(appointmentId);
+    @GetMapping("/appointment/{patientUUID}")
+    public ResponseEntity<AppointmentDetailsDTO> getAppointmentDetails(@PathVariable UUID patientUUID) {
+        AppointmentDetailsDTO appointmentDetails = appointmentService.getAppointmentDetails(patientUUID);
         if(appointmentDetails != null) {
             return ResponseEntity.ok().body(appointmentDetails);
         }

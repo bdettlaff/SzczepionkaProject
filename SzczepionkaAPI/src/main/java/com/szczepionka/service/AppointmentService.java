@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Service
@@ -76,11 +77,11 @@ public class AppointmentService {
         return null;
     }
 
-    public AppointmentDetailsDTO getAppointmentDetails(Long appointmentId) {
-        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+    public AppointmentDetailsDTO getAppointmentDetails(UUID patientUUID) {
+        Patient patient = patientService.findPatientByUUID(patientUUID);
+        Optional<Appointment> appointment = appointmentRepository.findByPatientId(patient.getId());
         if(appointment.isPresent()) {
             LocationDetails locationDetails = appointment.get().getLocationDetails();
-            Patient patient = patientService.findPatient(appointment.get().getPatientId());
 
             return AppointmentDetailsDTO.builder()
                     .appointmentLocationName(locationDetails.getLocationName())
@@ -91,7 +92,8 @@ public class AppointmentService {
                     .appointmentStatus(appointment.get().getAppointmentStatus())
                     .appointmentDate(appointment.get().getAppointmentDate())
                     .appointmentTime(appointment.get().getAppointmentTime())
-                    .patientReferralId(patient != null ? patient.getReferralId() : null)
+                    .patientReferralId(patient.getReferralId())
+                    .patientUUID(patient.getUuid())
                     .build();
         }
         return null;

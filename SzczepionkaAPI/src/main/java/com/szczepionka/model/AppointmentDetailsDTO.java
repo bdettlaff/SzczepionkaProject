@@ -8,12 +8,15 @@ import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
+import java.util.UUID;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Builder
 public class AppointmentDetailsDTO {
+
+    private UUID patientUUID;
 
     private String patientReferralId;
 
