@@ -1,54 +1,63 @@
 <nav class="navbar">
 </nav>
 
-<div class="container">
-  <h2>Dostępne lokalizacje dla kodu {{registerForm.zipcode}}</h2>
+<div *ngIf="this.registerForm">
+  <div class="container">
+    <h2>Dostępne lokalizacje dla kodu {{registerForm.zipcode}}</h2>
+  </div>
+
+  <div class="container">
+    <table mat-table [dataSource]="result" class="mat-elevation-z8" matSort>
+
+      <ng-container matColumnDef="country">
+        <th mat-header-cell *matHeaderCellDef>Kraj</th>
+        <td mat-cell *matCellDef="let element"> {{element.country}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="city">
+        <th mat-header-cell *matHeaderCellDef>Miasto</th>
+        <td mat-cell *matCellDef="let element"> {{element.city}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="postalCode">
+        <th mat-header-cell *matHeaderCellDef>Kod pocztowy</th>
+        <td mat-cell *matCellDef="let element"> {{element.postalCode}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="address">
+        <th mat-header-cell *matHeaderCellDef>Adres</th>
+        <td mat-cell *matCellDef="let element"> {{element.address}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>Nazwa placówki</th>
+        <td mat-cell *matCellDef="let element"> {{element.name}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="numberOfAvailableVaccines">
+        <th mat-header-cell *matHeaderCellDef>Dostępne szczepionki</th>
+        <td mat-cell *matCellDef="let element"> {{element.numberOfAvailableVaccines}}</td>
+      </ng-container>
+
+      <ng-container matColumnDef="vaccineName">
+        <th mat-header-cell *matHeaderCellDef>Nazwa szczepionki</th>
+        <td mat-cell *matCellDef="let element"> {{element.vaccinationBrandt}}</td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+      <ng-container matColumnDef="selectLocation" mat-sort-header>
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button class="btn btn-primary btn-color" (click)="selectLocation(element.id)"> Wybierz</button>
+        </td>
+      </ng-container>
+    </table>
+  </div>
 </div>
-
-<div class="container">
-  <table mat-table [dataSource]="result"  class="mat-elevation-z8" matSort>
-
-    <ng-container matColumnDef="country">
-      <th mat-header-cell *matHeaderCellDef  >Kraj</th>
-      <td mat-cell *matCellDef="let element"> {{element.country}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="city">
-      <th mat-header-cell *matHeaderCellDef>Miasto</th>
-      <td mat-cell *matCellDef="let element"> {{element.city}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="postalCode">
-      <th mat-header-cell *matHeaderCellDef >Kod pocztowy</th>
-      <td mat-cell *matCellDef="let element"> {{element.postalCode}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="address">
-      <th mat-header-cell *matHeaderCellDef>Adres</th>
-      <td mat-cell *matCellDef="let element"> {{element.address}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef>Nazwa placówki</th>
-      <td mat-cell *matCellDef="let element"> {{element.name}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="numberOfAvailableVaccines">
-      <th mat-header-cell *matHeaderCellDef>Dostępne szczepionki</th>
-      <td mat-cell *matCellDef="let element"> {{element.numberOfAvailableVaccines}}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="vaccineName">
-      <th mat-header-cell *matHeaderCellDef>Nazwa szczepionki</th>
-      <td mat-cell *matCellDef="let element"> {{element.vaccinationBrandt}}</td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-
-    <ng-container matColumnDef="selectLocation" mat-sort-header>
-      <th mat-header-cell *matHeaderCellDef> </th>
-      <td mat-cell *matCellDef="let element"> <button class="btn btn-primary btn-color" (click)="selectLocation(element.id)"> Wybierz </button></td>
-    </ng-container>
-  </table>
+<div *ngIf="!this.registerForm" >
+  <div class="text">
+    Brak podanego kodu pocztowego.
+  </div>
 </div>
