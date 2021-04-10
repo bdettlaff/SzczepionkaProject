@@ -23,7 +23,7 @@ import java.util.UUID;
 public class Patient {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(updatable = false, nullable = false, unique = true)
