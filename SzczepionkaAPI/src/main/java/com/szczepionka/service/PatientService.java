@@ -27,8 +27,8 @@ public class PatientService {
         return patientRepository.save(patient);
     }
 
-    public Patient findPatient(Long patientId) {
-        Optional<Patient> patient = patientRepository.findById(patientId);
+    public Patient findPatientByUUID(UUID appointmentUUID) {
+        Optional<Patient> patient = patientRepository.findByUuid(appointmentUUID);
         return patient.isPresent() ? patient.get() : null;
     }
 

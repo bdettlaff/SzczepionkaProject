@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AppointmentDetailsService } from '../../service/appointment-details/appointment-details.service';
 import { ActivatedRoute, } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
+import {AppointmentDetails} from "../../model/AppointmentDetails";
 
 @Component({
   selector: 'app-appointment-details',
@@ -27,10 +28,23 @@ export class AppointmentDetailsComponent implements OnInit {
     this.appointmentService.getAppointment(this.patientUUID).subscribe(
       data => {
         this.appointment = data;
+        this.replaceStatusDescription();
       }, error => {
         console.log(error);
       }, () => {
       });
+  }
+
+  private replaceStatusDescription() {
+    if(this.appointment.appointmentStatus === 'PLANNED') {
+      this.appointment.appointmentStatus = 'ZAPLANOWANA';
+    } else if (this.appointment.appointmentStatus === 'CANCELLED') {
+      this.appointment.appointmentStatus = 'ODWOŁANA';
+    } else if (this.appointment.appointmentStatus === 'POSTPONED') {
+      this.appointment.appointmentStatus = 'PRZEŁOŻONA';
+    } else if (this.appointment.appointmentStatus === 'NOT_PLANNED') {
+      this.appointment.appointmentStatus = 'NIE ZAPLANOWANA';
+    }
   }
 
   cancelAppointment(): void {
