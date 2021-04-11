@@ -38,6 +38,7 @@ public class LocationsServiceImpl implements LocationsService {
 
         Map<Object, VaccinationLocation> mapSortedByDistanceAsc = new TreeMap<>(distanceMap);
         return mapSortedByDistanceAsc.values().stream()
+                .filter(vaccinationLocation -> vaccinationLocation.getNumberOfAvailableVaccines() > 0)
                 .limit(quantityOfNearestLocations)
                 .collect(Collectors.toList());
     }
