@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { AppointmentDetails } from '../../model/AppointmentDetails';
+import {Registration} from "../../model/Registration";
 
 const httpOptions = {
   headers: new HttpHeaders({
@@ -22,5 +23,10 @@ export class GoogleMapService {
 
   sendPostCode(postCode: string): Observable<any>{
     return this.http.get<AppointmentDetails>('http://localhost:8080//location/' + postCode, httpOptions);
+  }
+
+  makeAppointment(registrationForm: Registration, locationId: number) {
+    console.log(registrationForm);
+    return this.http.post('http://localhost:8080/appointment/' + locationId, httpOptions);
   }
 }
