@@ -24,10 +24,10 @@ public class AppointmentDetailsDTO {
 
     private AppointmentStatus appointmentStatus;
 
-    @JsonFormat(pattern="dd-MM-yyyy")
+    @JsonFormat(pattern = "dd-MM-yyyy")
     private LocalDate appointmentDate;
 
-    @JsonFormat(pattern="HH:mm")
+    @JsonFormat(pattern = "HH:mm")
     private LocalTime appointmentTime;
 
     private String appointmentLocationCity;

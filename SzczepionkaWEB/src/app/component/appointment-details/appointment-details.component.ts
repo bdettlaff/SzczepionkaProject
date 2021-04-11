@@ -36,13 +36,13 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
   private replaceStatusDescription() {
-    if(this.appointment.appointmentStatus == 'PLANNED') {
+    if(this.appointment.appointmentStatus === 'PLANNED') {
       this.appointment.appointmentStatus = 'ZAPLANOWANA';
-    } else if (this.appointment.appointmentStatus == 'CANCELLED') {
+    } else if (this.appointment.appointmentStatus === 'CANCELLED') {
       this.appointment.appointmentStatus = 'ODWOŁANA';
-    } else if (this.appointment.appointmentStatus == 'POSTPONED') {
+    } else if (this.appointment.appointmentStatus === 'POSTPONED') {
       this.appointment.appointmentStatus = 'PRZEŁOŻONA';
-    } else if (this.appointment.appointmentStatus == 'NOT_PLANNED') {
+    } else if (this.appointment.appointmentStatus === 'NOT_PLANNED') {
       this.appointment.appointmentStatus = 'NIE ZAPLANOWANA';
     }
   }
