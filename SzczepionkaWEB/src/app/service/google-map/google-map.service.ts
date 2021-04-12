@@ -26,7 +26,6 @@ export class GoogleMapService {
   }
 
   makeAppointment(registrationForm: Registration, locationId: number) {
-    console.log(registrationForm);
-    return this.http.post('http://localhost:8080/appointment/' + locationId, httpOptions);
+    return this.http.post<Registration>('http://localhost:8080/appointment/' + locationId, JSON.stringify(registrationForm), httpOptions);
   }
 }

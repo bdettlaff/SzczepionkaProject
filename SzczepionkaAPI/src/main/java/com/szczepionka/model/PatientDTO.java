@@ -1,5 +1,6 @@
 package com.szczepionka.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -15,10 +16,13 @@ public class PatientDTO {
 
     private String pesel;
 
+    @JsonProperty("identificator")
     private String idNumber;
 
+    @JsonProperty("zipcode")
     private String postalCode;
 
+    @JsonProperty("referral")
     private String referralId;
 
     private String email;
