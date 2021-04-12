@@ -48,6 +48,19 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
   cancelAppointment(): void {
+    // if(confirm("Czy na pewno chcesz odwołać wizytę?")) {
+        console.log(this.appointment.appointmentId);
+        console.log(this.appointment.appointmentStatus);
+      this.appointmentService.cancelAppointment(this.appointment.appointmentId).subscribe(
+          data => {
+
+          }, error => {
+              console.log(error);
+          }, () => {
+
+          });
+        console.log(this.appointment.appointmentStatus);
+    // }
   }
 
   viewVaccinationDetails(): void {
