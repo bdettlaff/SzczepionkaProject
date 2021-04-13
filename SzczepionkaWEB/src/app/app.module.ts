@@ -13,6 +13,7 @@ import { AgmCoreModule } from '@agm/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatTableModule } from '@angular/material/table';
 import { AppointmentDetailsComponent } from './component/appointment-details/appointment-details.component';
+import { ConfirmationComponent } from './component/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AppointmentDetailsComponent } from './component/appointment-details/app
     RegisterComponent,
     MapComponent,
     LandingPageComponent,
-    AppointmentDetailsComponent
+    AppointmentDetailsComponent,
+    ConfirmationComponent
   ],
   imports: [
     BrowserModule,
