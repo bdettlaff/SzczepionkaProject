@@ -23,4 +23,8 @@ export class AppointmentDetailsService {
   getAppointment(patientUUID: string): Observable<AppointmentDetails> {
     return this.http.get<AppointmentDetails>('http://localhost:8080/appointment/' + patientUUID, httpOptions);
   }
+
+  cancelAppointment(appointmentId: string) {
+    return this.http.patch('http://localhost:8080/appointment/' + appointmentId, httpOptions);
+  }
 }

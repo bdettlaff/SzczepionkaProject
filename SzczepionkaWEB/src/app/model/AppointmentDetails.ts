@@ -9,9 +9,20 @@ export class AppointmentDetails {
     appointmentLocationPostalCode: string;
     appointmentLocationAddress: string;
     appointmentLocationName: string;
+    patientUUID: string;
+    appointmentId: string;
 
-
-    constructor(patientReferralId: string, vaccinationBrandt: string, appointmentStatus: string, appointmentDate: string, appointmentTime: string, appointmentLocationCity: string, appointmentLocationPostalCode: string, appointmentLocationAddress: string, appointmentLocationName: string) {
+    constructor(patientReferralId: string,
+                vaccinationBrandt: string,
+                appointmentStatus: string,
+                appointmentDate: string,
+                appointmentTime: string,
+                appointmentLocationCity: string,
+                appointmentLocationPostalCode: string,
+                appointmentLocationAddress: string,
+                appointmentLocationName: string,
+                patientUUID: string,
+                appointmentId: string) {
         this.patientReferralId = patientReferralId;
         this.vaccinationBrandt = vaccinationBrandt;
         this.appointmentStatus = appointmentStatus;
@@ -21,5 +32,7 @@ export class AppointmentDetails {
         this.appointmentLocationPostalCode = appointmentLocationPostalCode;
         this.appointmentLocationAddress = appointmentLocationAddress;
         this.appointmentLocationName = appointmentLocationName;
+        this.patientUUID = patientUUID;
+        this.appointmentId = appointmentId;
     }
 }

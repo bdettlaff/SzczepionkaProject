@@ -16,6 +16,8 @@ import java.util.UUID;
 @Builder
 public class AppointmentDetailsDTO {
 
+    private long appointmentId;
+
     private UUID patientUUID;
 
     private String patientReferralId;

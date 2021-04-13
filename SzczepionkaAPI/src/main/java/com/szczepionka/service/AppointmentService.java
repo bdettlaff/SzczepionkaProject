@@ -84,6 +84,7 @@ public class AppointmentService {
             LocationDetails locationDetails = appointment.get().getLocationDetails();
 
             return AppointmentDetailsDTO.builder()
+                    .appointmentId(appointment.get().getId())
                     .appointmentLocationName(locationDetails.getLocationName())
                     .appointmentLocationAddress(locationDetails.getAddress())
                     .appointmentLocationPostalCode(locationDetails.getPostalCode())

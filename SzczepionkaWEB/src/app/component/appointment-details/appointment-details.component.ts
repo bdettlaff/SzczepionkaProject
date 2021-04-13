@@ -2,7 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { AppointmentDetailsService } from '../../service/appointment-details/appointment-details.service';
 import { ActivatedRoute, } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
-import {AppointmentDetails} from "../../model/AppointmentDetails";
+import { AppointmentDetails } from "../../model/AppointmentDetails";
 
 @Component({
   selector: 'app-appointment-details',
@@ -48,6 +48,23 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
   cancelAppointment(): void {
+    var promise = new Promise((resolve, reject) => {
+      resolve("Promise Resolved");
+    })
+
+    if(confirm("Czy na pewno chcesz odwołać wizytę?")) {
+      this.appointmentService.cancelAppointment(this.appointment.appointmentId).subscribe(
+        data => {
+        }, error => {
+          console.log(error);
+        }, () => {
+        });
+    }
+
+    promise.then((success) => {
+      window.location.reload();
+      console.log(success);
+    })
   }
 
   viewVaccinationDetails(): void {
