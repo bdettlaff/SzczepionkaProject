@@ -4,10 +4,10 @@ package com.szczepionka.service;
 import com.szczepionka.entity.Patient;
 import com.szczepionka.model.PatientDTO;
 import com.szczepionka.repository.PatientRepository;
+import com.szczepionka.util.PatientLinkGenerator;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.util.UriComponents;
-import org.springframework.web.util.UriComponentsBuilder;
+
 
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
@@ -15,12 +15,11 @@ import javax.mail.PasswordAuthentication;
 import javax.mail.Session;
 import javax.mail.Message;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 import javax.mail.internet.InternetAddress;
-import java.io.IOException;
+import java.net.URL;
 import java.util.Date;
 import java.util.Optional;
 import java.util.Properties;
@@ -41,9 +40,11 @@ public class EmailService {
     }
 
 
-    public PatientDTO sendMail(Long patientId) throws AddressException, MessagingException, IOException {
+    public PatientDTO sendMail(Long patientId) throws MessagingException {
         Optional<Patient> patient = patientRepository.findById(patientId);
         if (patient.isPresent()) {
+            Patient patientUUID = Patient.builder().
+                    uuid(patient.get().getUuid()).build();
             PatientDTO patientDTO = PatientDTO.builder().
                     email(patient.get().getEmail())
                     .pesel(patient.get().getPesel())
@@ -67,6 +68,7 @@ public class EmailService {
             Message msg = new MimeMessage(session);
             msg.setFrom(new InternetAddress(username, false));
 
+            URL url = PatientLinkGenerator.generateIndividualPatientUrl(patientUUID.getUuid());
             msg.setRecipients(Message.RecipientType.TO, InternetAddress.parse(patientDTO.getEmail()));
             msg.setSubject("Potwierdzenie zapisu na szczepienie");
             msg.setSentDate(new Date());
@@ -75,7 +77,7 @@ public class EmailService {
                             + "\nDane:\n"
                             + "Pesel:\t" + patientDTO.getPesel().replace(patientDTO.getPesel().substring(3, 7), "****")
                             + "\nKod pocztowy:\t" + patientDTO.getPostalCode()
-                            + "\nAby zobaczyć szczegóły szczepienia, kliknij w link poniżej\t" + constructUri(patientDTO.getReferralId()),
+                            + "\nAby zobaczyć szczegóły szczepienia, kliknij w link poniżej\t" + url,
                     "text/plain; charset=utf-8");
 
             Multipart multipart = new MimeMultipart();
@@ -87,15 +89,6 @@ public class EmailService {
             return patientDTO;
         }
         return null;
-    }
-
-
-    private String constructUri(String url) {
-        UriComponents uriComponents = UriComponentsBuilder.newInstance()
-                .scheme("http").host("localhost:4200")
-                .path("/" + url).query("q={keywords}").buildAndExpand("szczepienie");
-
-        return uriComponents.toString();
     }
 }
 

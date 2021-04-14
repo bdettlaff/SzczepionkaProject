@@ -12,6 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.UUID;
 
 @Entity
@@ -31,17 +34,21 @@ public class Patient {
     private UUID uuid = UUID.randomUUID();
 
     @NotNull
+    @Column(unique = true)
+    @Size(min = 11, max = 11)
     private String pesel;
 
     @NotNull
     private String idNumber;
 
     @NotNull
+    @Pattern(regexp = "[0-9]{2}-[0-9]{3}")
     private String postalCode;
 
     @NotNull
     private String referralId;
 
     @NotNull
+    @Email
     private String email;
 }

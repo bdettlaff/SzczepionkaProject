@@ -4,15 +4,15 @@
   <form [formGroup]="registerForm">
     <div class="form-group">
       <label for="pesel">PESEL</label>
-      <input type="text" formControlName="pesel" class="form-control"/>
+      <input type="text" class="form-control" formControlName="pesel" name="pesel" formControlName="pesel"  minlength="11" maxlength="11" class="form-control" required/>
     </div>
     <div class="form-group">
       <label for="identificator">Numer Dowodu</label>
-      <input type="text" formControlName="identificator" class="form-control"/>
+      <input type="text" formControlName="identificator" class="form-control" minlength="9" maxlength="9"/>
     </div>
     <div class="form-group">
       <label for="zipcode">Kod Pocztowy</label>
-      <input type="text" formControlName="zipcode" class="form-control"/>
+      <input type="text" formControlName="zipcode" class="form-control" maxlength="6"/>
     </div>
     <div class="form-group">
       <label for="referral">Skierowanie</label>
@@ -20,10 +20,10 @@
     </div>
     <div class="form-group">
       <label for="email">Adres email</label>
-      <input type="text" formControlName="email" class="form-control"/>
+      <input type="email" formControlName="email" class="form-control"/>
     </div>
     <div class="form-group button-container buttons-space">
-      <button [disabled]="loading" class="btn btn-primary btn-color" (click)="onSubmit()">
+      <button [disabled]="loading" class="btn btn-primary btn-color" [disabled]="!registerForm.valid"(click)="onSubmit()">
         <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
         Zarejestruj
       </button>

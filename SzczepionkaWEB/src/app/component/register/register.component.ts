@@ -18,14 +18,14 @@ export class RegisterComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private registerService: RegisterService
-  ) {
+    ) {
   }
 
   ngOnInit(): void {
-    this.registerForm = this.formBuilder.group({
-      pesel: ['', Validators.required],
+      this.registerForm = this.formBuilder.group({
+      pesel: ['', Validators.required, Validators.minLength(11), Validators.maxLength(11)],
       identificator: ['', Validators.required],
-      zipcode: ['', Validators.required],
+      zipcode: ['', Validators.required, Validators.pattern('[0-9]{2}-[0-9]{3}'), Validators.maxLength(6)],
       referral: ['', Validators.required],
       email: ['', Validators.required]
     });

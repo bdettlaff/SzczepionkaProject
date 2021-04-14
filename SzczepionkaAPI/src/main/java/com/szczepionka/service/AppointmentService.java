@@ -11,6 +11,7 @@ import com.szczepionka.util.VaccinationLocationsFetcher;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Optional;
@@ -24,15 +25,17 @@ public class AppointmentService {
     private final PatientService patientService;
     private final VaccinationLocationsFetcher vaccinationLocationsFetcher;
     private final ModelMapper modelMapper;
+    private final EmailService emailService;
 
-    public AppointmentService(AppointmentRepository appointmentRepository, PatientService patientService, VaccinationLocationsFetcher vaccinationLocationsFetcher, ModelMapper modelMapper) {
+    public AppointmentService(AppointmentRepository appointmentRepository, PatientService patientService, VaccinationLocationsFetcher vaccinationLocationsFetcher, ModelMapper modelMapper, EmailService emailService) {
         this.appointmentRepository = appointmentRepository;
         this.patientService = patientService;
         this.vaccinationLocationsFetcher = vaccinationLocationsFetcher;
         this.modelMapper = modelMapper;
+        this.emailService = emailService;
     }
 
-    public Appointment newAppointment(PatientDTO patientDTO, long locationId) {
+    public Appointment newAppointment(PatientDTO patientDTO, long locationId) throws MessagingException {
         Patient patient = patientService.addPatient(patientDTO);
 
         Appointment appointment = Appointment.builder()
@@ -42,7 +45,7 @@ public class AppointmentService {
                 .appointmentStatus(AppointmentStatus.PLANNED)
                 .locationDetails(getLocationDetailsById(locationId))
                 .build();
-
+        emailService.sendMail(patient.getId());
         return appointmentRepository.save(appointment);
     }
 
@@ -70,7 +73,7 @@ public class AppointmentService {
 
     public Appointment cancelAppointment(Long appointmentId) {
         Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
-        if(appointment.isPresent()) {
+        if (appointment.isPresent()) {
             appointment.get().setAppointmentStatus(AppointmentStatus.CANCELLED);
             return appointmentRepository.save(appointment.get());
         }
@@ -80,7 +83,7 @@ public class AppointmentService {
     public AppointmentDetailsDTO getAppointmentDetails(UUID patientUUID) {
         Patient patient = patientService.findPatientByUUID(patientUUID);
         Optional<Appointment> appointment = appointmentRepository.findByPatientId(patient.getId());
-        if(appointment.isPresent()) {
+        if (appointment.isPresent()) {
             LocationDetails locationDetails = appointment.get().getLocationDetails();
 
             return AppointmentDetailsDTO.builder()

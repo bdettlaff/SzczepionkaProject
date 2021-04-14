@@ -13,6 +13,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.mockito.Mock;
 import org.modelmapper.ModelMapper;
 
+import javax.mail.MessagingException;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -32,6 +33,8 @@ class AppointmentServiceScenarios {
     private PatientService patientServiceStub;
     @Mock
     private VaccinationLocationsFetcher vaccinationLocationsFetcherStub;
+    @Mock
+    private EmailService emailServiceStub;
 
     @BeforeAll
     void setUp() {
@@ -39,11 +42,11 @@ class AppointmentServiceScenarios {
         patientServiceStub = mock(PatientService.class);
         vaccinationLocationsFetcherStub = mock(VaccinationLocationsFetcher.class);
         ModelMapper modelMapper = new ModelMapper();
-        appointmentService = new AppointmentService(appointmentRepositoryStub, patientServiceStub, vaccinationLocationsFetcherStub, modelMapper);
+        appointmentService = new AppointmentService(appointmentRepositoryStub, patientServiceStub, vaccinationLocationsFetcherStub, modelMapper,emailServiceStub);
     }
 
     @Test
-    void addAppointment() {
+    void addAppointment() throws MessagingException {
         // Given
         PatientDTO patientDTO = ObjectMother.defaultPatientDto();
         Patient patient = ObjectMother.defaultPateient();
