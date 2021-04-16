@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.UUID;
 
 @RestController
 public class EmailController {
@@ -21,7 +22,7 @@ public class EmailController {
 
 
     @RequestMapping(value = "/send/{patientId}", method = RequestMethod.POST)
-    public ResponseEntity<String> sendEmail(@PathVariable Long patientId) throws AddressException, MessagingException, IOException {
+    public ResponseEntity<?> sendEmail(@PathVariable("patientId") Long patientId) throws AddressException, MessagingException, IOException {
         PatientDTO patientDTO = emailService.sendMail(patientId);
         if (patientDTO != null) {
             return ResponseEntity.ok("Email sent");

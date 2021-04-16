@@ -3,6 +3,7 @@ package com.szczepionka.configuration;
 import com.szczepionka.util.DistanceCalculator;
 import com.szczepionka.util.VaccinationLocationsFetcher;
 import com.szczepionka.util.ZipcodeConverter;
+import com.szczepionka.util.PatientLinkGenerator;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -30,5 +31,9 @@ public class ApplicationConfig {
     @Bean
     public ZipcodeConverter zipcodeConverter() {
         return new ZipcodeConverter();
+    }
+
+    public PatientLinkGenerator patientLinkGenerator() {
+        return new PatientLinkGenerator();
     }
 }

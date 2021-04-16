@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.mail.MessagingException;
 import java.util.UUID;
 
 @RestController
@@ -24,14 +25,14 @@ public class AppointmentController {
     }
 
     @PostMapping("/appointment/{locationId}")
-    public Appointment newAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) {
+    public Appointment newAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) throws MessagingException {
         return appointmentService.newAppointment(patientDTO, locationId);
     }
 
     @PatchMapping("/appointment/{appointmentId}")
     public ResponseEntity<Appointment> cancelAppointment(@PathVariable Long appointmentId) {
         Appointment cancelAppointment = appointmentService.cancelAppointment(appointmentId);
-        if(cancelAppointment != null) {
+        if (cancelAppointment != null) {
             return ResponseEntity.ok().body(cancelAppointment);
         }
         return ResponseEntity.notFound().build();
@@ -40,7 +41,7 @@ public class AppointmentController {
     @GetMapping("/appointment/{patientUUID}")
     public ResponseEntity<AppointmentDetailsDTO> getAppointmentDetails(@PathVariable UUID patientUUID) {
         AppointmentDetailsDTO appointmentDetails = appointmentService.getAppointmentDetails(patientUUID);
-        if(appointmentDetails != null) {
+        if (appointmentDetails != null) {
             return ResponseEntity.ok().body(appointmentDetails);
         }
         return ResponseEntity.notFound().build();
