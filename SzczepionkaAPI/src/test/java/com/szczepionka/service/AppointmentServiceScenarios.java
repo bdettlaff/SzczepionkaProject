@@ -42,7 +42,7 @@ class AppointmentServiceScenarios {
         patientServiceStub = mock(PatientService.class);
         vaccinationLocationsFetcherStub = mock(VaccinationLocationsFetcher.class);
         ModelMapper modelMapper = new ModelMapper();
-        appointmentService = new AppointmentService(appointmentRepositoryStub, patientServiceStub, vaccinationLocationsFetcherStub, modelMapper,emailServiceStub);
+        appointmentService = new AppointmentService(appointmentRepositoryStub, patientServiceStub, vaccinationLocationsFetcherStub, modelMapper, emailServiceStub);
     }
 
     @Test

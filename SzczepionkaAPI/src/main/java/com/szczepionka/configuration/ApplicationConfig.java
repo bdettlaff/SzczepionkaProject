@@ -33,7 +33,6 @@ public class ApplicationConfig {
         return new ZipcodeConverter();
     }
 
-    @Bean
     public PatientLinkGenerator patientLinkGenerator() {
         return new PatientLinkGenerator();
     }
