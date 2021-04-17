@@ -8,7 +8,7 @@ public class PatientLinkGenerator {
 
     public static URL generateIndividualPatientUrl(UUID patientUuid) {
         try {
-            return new URL("http://localhost:8080/appointment/" + patientUuid);
+            return new URL("http://localhost:4200/appointmentDetails/" + patientUuid);
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
