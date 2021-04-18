@@ -6,6 +6,7 @@ import com.szczepionka.entity.Patient;
 import com.szczepionka.model.AppointmentDetailsDTO;
 import com.szczepionka.model.AppointmentStatus;
 import com.szczepionka.model.PatientDTO;
+import com.szczepionka.model.VaccinationBrandt;
 import com.szczepionka.repository.AppointmentRepository;
 import com.szczepionka.util.VaccinationLocationsFetcher;
 import org.modelmapper.ModelMapper;
@@ -35,14 +36,14 @@ public class AppointmentService {
         this.emailService = emailService;
     }
 
-    public Appointment newAppointment(PatientDTO patientDTO, long locationId) throws MessagingException {
+    public Appointment newFirstAppointment(PatientDTO patientDTO, long locationId) throws MessagingException {
         Patient patient = patientService.addPatient(patientDTO);
 
         Appointment appointment = Appointment.builder()
                 .patientId(patient.getId())
-                .appointmentDate(createAppointmentDate())
-                .appointmentTime(createAppointmentTime())
-                .appointmentStatus(AppointmentStatus.PLANNED)
+                .firstAppointmentDate(createAppointmentDate())
+                .firstAppointmentTime(createAppointmentTime())
+                .firstAppointmentStatus(AppointmentStatus.PLANNED)
                 .locationDetails(getLocationDetailsById(locationId))
                 .build();
         emailService.sendMail(patient.getId());
@@ -71,10 +72,14 @@ public class AppointmentService {
         return modelMapper.map(vaccinationLocationsFetcher.getById(id), LocationDetails.class);
     }
 
-    public Appointment cancelAppointment(Long appointmentId) {
+    public Appointment cancelAppointment(int appointmentNumber, Long appointmentId) {
         Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
         if (appointment.isPresent()) {
-            appointment.get().setAppointmentStatus(AppointmentStatus.CANCELLED);
+            if (appointmentNumber == 1) {
+                appointment.get().setFirstAppointmentStatus(AppointmentStatus.CANCELLED);
+            } else if (appointmentNumber == 2) {
+                appointment.get().setSecondAppointmentStatus(AppointmentStatus.CANCELLED);
+            }
             return appointmentRepository.save(appointment.get());
         }
         return null;
@@ -82,25 +87,53 @@ public class AppointmentService {
 
     public AppointmentDetailsDTO getAppointmentDetails(UUID patientUUID) {
         Patient patient = patientService.findPatientByUUID(patientUUID);
-        Optional<Appointment> appointment = appointmentRepository.findByPatientId(patient.getId());
-        if (appointment.isPresent()) {
-            LocationDetails locationDetails = appointment.get().getLocationDetails();
+        Optional<Appointment> appointmentOptional = appointmentRepository.findByPatientId(patient.getId());
+        if (appointmentOptional.isPresent()) {
+            Appointment appointment = appointmentOptional.get();
+            LocationDetails locationDetails = appointment.getLocationDetails();
 
             return AppointmentDetailsDTO.builder()
-                    .appointmentId(appointment.get().getId())
+                    .appointmentId(appointment.getId())
                     .appointmentLocationName(locationDetails.getLocationName())
                     .appointmentLocationAddress(locationDetails.getAddress())
                     .appointmentLocationPostalCode(locationDetails.getPostalCode())
                     .appointmentLocationCity(locationDetails.getCity())
                     .vaccinationBrandt(locationDetails.getVaccinationBrandt())
-                    .appointmentStatus(appointment.get().getAppointmentStatus())
-                    .appointmentDate(appointment.get().getAppointmentDate())
-                    .appointmentTime(appointment.get().getAppointmentTime())
+                    .firstAppointmentStatus(appointment.getFirstAppointmentStatus())
+                    .firstAppointmentDate(appointment.getFirstAppointmentDate())
+                    .firstAppointmentTime(appointment.getFirstAppointmentTime())
+                    .secondAppointmentStatus(appointment.getSecondAppointmentStatus())
+                    .secondAppointmentDate(appointment.getSecondAppointmentDate())
+                    .secondAppointmentTime(appointment.getSecondAppointmentTime())
                     .patientReferralId(patient.getReferralId())
                     .patientUUID(patient.getUuid())
                     .build();
         }
         return null;
+    }
+
+    public Appointment newSecondAppointment(Long appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        if (appointment.isPresent()) {
+            int timeGapBetweenVaccinations = getTimeGapBetweenVaccinations(appointment.get().getLocationDetails().getVaccinationBrandt());
+            appointment.get().setSecondAppointmentDate(createAppointmentDate().plusDays(timeGapBetweenVaccinations));
+            appointment.get().setSecondAppointmentTime(createAppointmentTime());
+            appointment.get().setSecondAppointmentStatus(AppointmentStatus.PLANNED);
+            return appointmentRepository.save(appointment.get());
+        }
+        return null;
+    }
+
+    private int getTimeGapBetweenVaccinations(VaccinationBrandt vaccinationBrandt) {
+        switch (vaccinationBrandt) {
+            case PFIZER:
+            case MODERNA:
+                return 42; //6 weeks
+            case ASTRA_ZENECA:
+                return 84; //12 weeks
+            default:
+                return 56; //8 weeks
+        }
     }
 
 }
