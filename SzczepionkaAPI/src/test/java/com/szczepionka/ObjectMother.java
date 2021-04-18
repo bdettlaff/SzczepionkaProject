@@ -37,9 +37,9 @@ public class ObjectMother {
         return Appointment.builder()
                 .id(1)
                 .patientId(1)
-                .appointmentDate(LocalDate.now().plusDays(1))
-                .appointmentTime(LocalTime.of(10, 0))
-                .appointmentStatus(AppointmentStatus.PLANNED)
+                .firstAppointmentDate(LocalDate.now().plusDays(1))
+                .firstAppointmentTime(LocalTime.of(10, 0))
+                .firstAppointmentStatus(AppointmentStatus.PLANNED)
                 .locationDetails(new LocationDetails("Lodz", "91-053", "Bazarowa 9", "Centra Medyczne Medyceusz", VaccinationBrandt.MODERNA))
                 .build();
     }

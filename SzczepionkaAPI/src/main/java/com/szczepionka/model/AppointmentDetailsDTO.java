@@ -24,13 +24,21 @@ public class AppointmentDetailsDTO {
 
     private VaccinationBrandt vaccinationBrandt;
 
-    private AppointmentStatus appointmentStatus;
+    private AppointmentStatus firstAppointmentStatus;
 
     @JsonFormat(pattern = "dd-MM-yyyy")
-    private LocalDate appointmentDate;
+    private LocalDate firstAppointmentDate;
 
     @JsonFormat(pattern = "HH:mm")
-    private LocalTime appointmentTime;
+    private LocalTime firstAppointmentTime;
+
+    private AppointmentStatus secondAppointmentStatus;
+
+    @JsonFormat(pattern = "dd-MM-yyyy")
+    private LocalDate secondAppointmentDate;
+
+    @JsonFormat(pattern = "HH:mm")
+    private LocalTime secondAppointmentTime;
 
     private String appointmentLocationCity;
 

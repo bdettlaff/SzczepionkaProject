@@ -58,13 +58,13 @@ class AppointmentServiceScenarios {
         when(vaccinationLocationsFetcherStub.getById(1)).thenReturn(vaccinationLocation);
 
         // When
-        Appointment result = appointmentService.newAppointment(patientDTO, 1);
+        Appointment result = appointmentService.newFirstAppointment(patientDTO, 1);
 
         // Then
         then(result).isInstanceOf(Appointment.class);
         then(result.getId()).isEqualTo(1);
-        then(result.getAppointmentDate()).isEqualTo(LocalDate.now().plusDays(1));
-        then(result.getAppointmentTime()).isEqualTo(LocalTime.of(10, 0));
+        then(result.getFirstAppointmentDate()).isEqualTo(LocalDate.now().plusDays(1));
+        then(result.getFirstAppointmentTime()).isEqualTo(LocalTime.of(10, 0));
         then(result.getLocationDetails().getCity()).isEqualTo(vaccinationLocation.getCity());
         then(result.getLocationDetails().getPostalCode()).isEqualTo(vaccinationLocation.getPostalCode());
         then(result.getLocationDetails().getAddress()).isEqualTo(vaccinationLocation.getAddress());

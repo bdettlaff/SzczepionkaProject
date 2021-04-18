@@ -32,13 +32,19 @@ public class Appointment {
     private long patientId;
 
     @NotNull
-    private LocalDate appointmentDate;
+    private LocalDate firstAppointmentDate;
 
     @NotNull
-    private LocalTime appointmentTime;
+    private LocalTime firstAppointmentTime;
 
     @NotNull
-    private AppointmentStatus appointmentStatus;
+    private AppointmentStatus firstAppointmentStatus;
+
+    private LocalDate secondAppointmentDate;
+
+    private LocalTime secondAppointmentTime;
+
+    private AppointmentStatus secondAppointmentStatus;
 
     @Embedded
     @NotNull

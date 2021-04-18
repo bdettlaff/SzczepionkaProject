@@ -10,12 +10,14 @@ import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.mail.MessagingException;
 import java.util.UUID;
 
 @RestController
+@RequestMapping("/appointment")
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
@@ -24,21 +26,27 @@ public class AppointmentController {
         this.appointmentService = appointmentService;
     }
 
-    @PostMapping("/appointment/{locationId}")
-    public Appointment newAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) throws MessagingException {
-        return appointmentService.newAppointment(patientDTO, locationId);
+    @PostMapping("/{locationId}")
+    public Appointment newFirstAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) throws MessagingException {
+        return appointmentService.newFirstAppointment(patientDTO, locationId);
     }
 
-    @PatchMapping("/appointment/{appointmentId}")
-    public ResponseEntity<Appointment> cancelAppointment(@PathVariable Long appointmentId) {
-        Appointment cancelAppointment = appointmentService.cancelAppointment(appointmentId);
+    @PostMapping("/2/{appointmentId}")
+    public Appointment newSecondAppointment(@PathVariable Long appointmentId) {
+        return appointmentService.newSecondAppointment(appointmentId);
+    }
+
+    @PatchMapping("/{appointmentNumber}/{appointmentId}")
+    public ResponseEntity<Appointment> cancelAppointment(@PathVariable int appointmentNumber,
+                                                         @PathVariable Long appointmentId) {
+        Appointment cancelAppointment = appointmentService.cancelAppointment(appointmentNumber, appointmentId);
         if (cancelAppointment != null) {
             return ResponseEntity.ok().body(cancelAppointment);
         }
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/appointment/{patientUUID}")
+    @GetMapping("/{patientUUID}")
     public ResponseEntity<AppointmentDetailsDTO> getAppointmentDetails(@PathVariable UUID patientUUID) {
         AppointmentDetailsDTO appointmentDetails = appointmentService.getAppointmentDetails(patientUUID);
         if (appointmentDetails != null) {
