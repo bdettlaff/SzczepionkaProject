@@ -2,7 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { RegisterService } from '../../service/register/register.service';
 import { GoogleMapService } from '../../service/google-map/google-map.service';
 import { Location } from '../../model/Location';
-import {Router} from "@angular/router";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-map',
@@ -39,14 +39,15 @@ export class MapComponent implements OnInit {
 
   selectLocation(id: number): void {
     this.googleMapService.makeAppointment(this.registerForm, id).subscribe(
-        data => {
-          this.router.navigate(['/confirmation']);
-        },
-        error => {
-          console.log(error)
-        },
-        () => {}
-    )
+      data => {
+        this.router.navigate(['/confirmation']);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+      }
+    );
   }
 
 }

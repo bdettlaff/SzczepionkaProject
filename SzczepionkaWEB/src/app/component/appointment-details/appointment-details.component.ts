@@ -12,6 +12,7 @@ export class AppointmentDetailsComponent implements OnInit {
 
   appointment: any;
   patientUUID: any;
+  isSecondVisitExist = true;
 
   constructor(private appointmentService: AppointmentDetailsService,
               private route: ActivatedRoute,
@@ -43,6 +44,8 @@ export class AppointmentDetailsComponent implements OnInit {
       this.appointment.appointmentStatus = 'PRZEŁOŻONA';
     } else if (this.appointment.appointmentStatus === 'NOT_PLANNED') {
       this.appointment.appointmentStatus = 'NIE ZAPLANOWANA';
+    } else if (this.appointment.appointmentStatus === 'placeholder') {
+      this.appointment.appointmentStatus = 'ZREALIZOWANA';
     }
   }
 
@@ -66,6 +69,14 @@ export class AppointmentDetailsComponent implements OnInit {
     } else if (this.appointment.vaccinationBrandt === 'MODERNA') {
       this.document.location.href = 'https://ec.europa.eu/health/documents/community-register/2021/20210106150575/anx_150575_pl.pdf';
     }
+  }
+
+  secondAppointment(): void {
+
+  }
+
+  cancelSecondAppointment(): void{
+
   }
 
 }
