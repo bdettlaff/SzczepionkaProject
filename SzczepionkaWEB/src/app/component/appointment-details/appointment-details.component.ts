@@ -47,10 +47,6 @@ export class AppointmentDetailsComponent implements OnInit {
   }
 
   cancelAppointment(): void {
-/*    let promise = new Promise((resolve, reject) => {
-      resolve('Promise Resolved');
-    });*/
-
     if (confirm('Czy na pewno chcesz odwołać wizytę?')) {
       this.appointmentService.cancelAppointment(this.appointment.appointmentId).subscribe(
         data => {
