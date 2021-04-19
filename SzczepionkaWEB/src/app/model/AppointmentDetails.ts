@@ -2,9 +2,12 @@ export class AppointmentDetails {
 
     patientReferralId: string;
     vaccinationBrandt: string;
-    appointmentStatus: string;
-    appointmentDate: string;
-    appointmentTime: string;
+    firstAppointmentStatus: string;
+    firstAppointmentDate: string;
+    firstAppointmentTime: string;
+    secondAppointmentStatus: string;
+    secondAppointmentDate: string;
+    secondAppointmentTime: string;
     appointmentLocationCity: string;
     appointmentLocationPostalCode: string;
     appointmentLocationAddress: string;
@@ -14,9 +17,12 @@ export class AppointmentDetails {
 
     constructor(patientReferralId: string,
                 vaccinationBrandt: string,
-                appointmentStatus: string,
-                appointmentDate: string,
-                appointmentTime: string,
+                firstAppointmentStatus: string,
+                firstAppointmentDate: string,
+                firstAppointmentTime: string,
+                secondAppointmentStatus: string,
+                secondAppointmentDate: string,
+                secondAppointmentTime: string,
                 appointmentLocationCity: string,
                 appointmentLocationPostalCode: string,
                 appointmentLocationAddress: string,
@@ -25,9 +31,12 @@ export class AppointmentDetails {
                 appointmentId: string) {
         this.patientReferralId = patientReferralId;
         this.vaccinationBrandt = vaccinationBrandt;
-        this.appointmentStatus = appointmentStatus;
-        this.appointmentDate = appointmentDate;
-        this.appointmentTime = appointmentTime;
+        this.firstAppointmentStatus = firstAppointmentStatus;
+        this.firstAppointmentDate = firstAppointmentDate;
+        this.firstAppointmentTime = firstAppointmentTime;
+        this.secondAppointmentStatus = secondAppointmentStatus;
+        this.secondAppointmentDate = secondAppointmentDate;
+        this.secondAppointmentTime = secondAppointmentTime;
         this.appointmentLocationCity = appointmentLocationCity;
         this.appointmentLocationPostalCode = appointmentLocationPostalCode;
         this.appointmentLocationAddress = appointmentLocationAddress;

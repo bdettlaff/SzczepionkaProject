@@ -2,17 +2,17 @@
 </nav>
 <div class="container">
     <div class="table-title">
-        <h3>Szczegółowe informacje o szczepieniu</h3>
+        <h3>Szczegółowe informacje o pierwszym szczepieniu</h3>
     </div>
     <table class="table-fill">
         <tbody class="table-hover">
         <tr>
             <td class="text-left">Data</td>
-            <td class="text-left">{{appointment.appointmentDate}}</td>
+            <td class="text-left">{{appointment.firstAppointmentDate}}</td>
         </tr>
         <tr>
             <td class="text-left">Godzina</td>
-            <td class="text-left">{{appointment.appointmentTime}}</td>
+            <td class="text-left">{{appointment.firstAppointmentTime}}</td>
         </tr>
         <tr>
             <td class="text-left">Miejsce szczepienia</td>
@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <td class="text-left">Status wizyty</td>
-            <td class="text-left">{{appointment.appointmentStatus}}</td>
+            <td class="text-left">{{appointment.firstAppointmentStatus}}</td>
         </tr>
         <tr>
             <td class="text-left">Szczepionka</td>
@@ -48,6 +48,63 @@
           <button class="btn btn-secondary" (click)="viewVaccinationDetails()">
               Informacje o szczepionce
           </button>
+          <button class="btn btn-primary btn-color" (click)="secondAppointment()">
+              Kolejne szczepienie
+          </button>
       </div>
     </div>
+
+
+  <div *ngIf="isSecondAppointmentExist">
+    <hr>
+    <div class="table-title">
+      <h3>Szczegółowe informacje o drugim szczepieniu</h3>
+    </div>
+    <table class="table-fill">
+      <tbody class="table-hover">
+      <tr>
+        <td class="text-left">Data</td>
+        <td class="text-left">{{appointment.secondAppointmentDate}}</td>
+      </tr>
+      <tr>
+        <td class="text-left">Godzina</td>
+        <td class="text-left">{{appointment.secondAppointmentTime}}</td>
+      </tr>
+      <tr>
+        <td class="text-left">Miejsce szczepienia</td>
+        <td class="text-left">{{appointment.appointmentLocationName}}</td>
+      </tr>
+      <tr>
+        <td class="text-left">Adres</td>
+        <td class="text-left">{{appointment.appointmentLocationAddress}}</td>
+      </tr>
+      <tr>
+        <td class="text-left">Miasto</td>
+        <td class="text-left">{{appointment.appointmentLocationCity}}</td>
+      </tr>
+      <tr>
+        <td class="text-left">Kod pocztowy</td>
+        <td class="text-left">{{appointment.appointmentLocationPostalCode}}</td>
+      </tr>
+      <tr>
+        <td class="text-left">Status wizyty</td>
+        <td class="text-left">{{appointment.secondAppointmentStatus}}</td>
+      </tr>
+      <tr>
+        <td class="text-left">Szczepionka</td>
+        <td class="text-left">{{appointment.vaccinationBrandt}}</td>
+      </tr>
+      </tbody>
+    </table>
+    <div class="container">
+      <div class="button-container buttons-space">
+        <button class="btn btn-primary btn-color" (click)="cancelSecondAppointment()">
+          Anuluj wizytę
+        </button>
+        <button class="btn btn-secondary" (click)="viewVaccinationDetails()">
+          Informacje o szczepionce
+        </button>
+      </div>
+    </div>
+  </div>
 </div>

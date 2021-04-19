@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, ObservableLike } from 'rxjs';
 import { AppointmentDetails } from '../../model/AppointmentDetails';
 
 const httpOptions = {
@@ -24,7 +24,11 @@ export class AppointmentDetailsService {
     return this.http.get<AppointmentDetails>('http://localhost:8080/appointment/' + patientUUID, httpOptions);
   }
 
-  cancelAppointment(appointmentId: string) {
-    return this.http.patch('http://localhost:8080/appointment/' + appointmentId, httpOptions);
+  cancelAppointment(appointmentNumber: number, appointmentId: string): Observable<any> {
+    return this.http.patch('http://localhost:8080/appointment/' + appointmentNumber + '/' + appointmentId, httpOptions);
+  }
+
+  newSecondAppointment(appointmentId: string): Observable<any> {
+    return this.http.post('http://localhost:8080/appointment/2/' + appointmentId, httpOptions);
   }
 }
