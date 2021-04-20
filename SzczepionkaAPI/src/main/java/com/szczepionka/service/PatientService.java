@@ -37,4 +37,8 @@ public class PatientService {
         return PatientLinkGenerator.generateIndividualPatientUrl(patientUUID);
     }
 
+    public Patient findPatientByPesel(String pesel) {
+        Optional<Patient> patient = patientRepository.findByPesel(pesel);
+        return patient.isPresent() ? patient.get() : null;
+    }
 }

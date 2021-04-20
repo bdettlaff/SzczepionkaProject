@@ -34,7 +34,6 @@ public class Patient {
     private UUID uuid = UUID.randomUUID();
 
     @NotNull
-    @Column(unique = true)
     @Size(min = 11, max = 11)
     private String pesel;
 

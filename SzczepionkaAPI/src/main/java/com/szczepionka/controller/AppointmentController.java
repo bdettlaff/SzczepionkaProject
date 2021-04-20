@@ -4,6 +4,7 @@ import com.szczepionka.entity.Appointment;
 import com.szczepionka.model.AppointmentDetailsDTO;
 import com.szczepionka.model.PatientDTO;
 import com.szczepionka.service.AppointmentService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -27,13 +28,21 @@ public class AppointmentController {
     }
 
     @PostMapping("/{locationId}")
-    public Appointment newFirstAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) throws MessagingException {
-        return appointmentService.newFirstAppointment(patientDTO, locationId);
+    public ResponseEntity newFirstAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) throws MessagingException {
+        boolean canEnroll = appointmentService.validateIfPatientCanEnrollFirstAppointment(patientDTO);
+        if(!canEnroll) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Patient with given PESEL is already enrolled");
+        }
+        return ResponseEntity.ok(appointmentService.newFirstAppointment(patientDTO, locationId));
     }
 
     @PostMapping("/2/{appointmentId}")
-    public Appointment newSecondAppointment(@PathVariable Long appointmentId) {
-        return appointmentService.newSecondAppointment(appointmentId);
+    public ResponseEntity newSecondAppointment(@PathVariable Long appointmentId) {
+        boolean canEnroll = appointmentService.validateIfPatientCanEnrollSecondAppointment(appointmentId);
+        if(!canEnroll) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Patient is already enrolled to second appointment");
+        }
+        return ResponseEntity.ok(appointmentService.newSecondAppointment(appointmentId));
     }
 
     @PatchMapping("/{appointmentNumber}/{appointmentId}")

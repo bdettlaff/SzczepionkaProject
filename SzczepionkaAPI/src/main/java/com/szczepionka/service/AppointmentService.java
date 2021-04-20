@@ -136,4 +136,22 @@ public class AppointmentService {
         }
     }
 
+    public boolean validateIfPatientCanEnrollFirstAppointment(PatientDTO patientDTO) {
+        Patient patient = patientService.findPatientByPesel(patientDTO.getPesel());
+        return patient == null || isFirstAppointmentCancelled(patient.getId());
+    }
+
+    private boolean isFirstAppointmentCancelled(Long patientId) {
+        Optional<Appointment> appointment = appointmentRepository.findByPatientId(patientId);
+        return appointment.isPresent() && appointment.get().getFirstAppointmentStatus() == AppointmentStatus.CANCELLED;
+    }
+
+    public boolean validateIfPatientCanEnrollSecondAppointment(Long appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        return appointment.isPresent() && isSecondAppointmentNullOrCancelled(appointment.get().getSecondAppointmentStatus());
+    }
+
+    private boolean isSecondAppointmentNullOrCancelled(AppointmentStatus secondAppointmentStatus) {
+        return secondAppointmentStatus == null || secondAppointmentStatus == AppointmentStatus.CANCELLED;
+    }
 }
