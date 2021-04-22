@@ -1,10 +1,11 @@
 package com.szczepionka.controller;
 
 import com.szczepionka.entity.Appointment;
+import com.szczepionka.exception.PatientAlreadyExistsException;
+import com.szczepionka.exception.PatientCantEnrollToSecondAppointment;
 import com.szczepionka.model.AppointmentDetailsDTO;
 import com.szczepionka.model.PatientDTO;
 import com.szczepionka.service.AppointmentService;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -28,21 +29,16 @@ public class AppointmentController {
     }
 
     @PostMapping("/{locationId}")
-    public ResponseEntity newFirstAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) throws MessagingException {
-        boolean canEnroll = appointmentService.validateIfPatientCanEnrollFirstAppointment(patientDTO);
-        if(!canEnroll) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Patient with given PESEL is already enrolled");
-        }
-        return ResponseEntity.ok(appointmentService.newFirstAppointment(patientDTO, locationId));
+    public ResponseEntity newFirstAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId)
+            throws MessagingException, PatientAlreadyExistsException {
+        Appointment appointment = appointmentService.enrollFirstAppointment(patientDTO, locationId);
+        return ResponseEntity.ok().body(appointment);
     }
 
     @PostMapping("/2/{appointmentId}")
-    public ResponseEntity newSecondAppointment(@PathVariable Long appointmentId) {
-        boolean canEnroll = appointmentService.validateIfPatientCanEnrollSecondAppointment(appointmentId);
-        if(!canEnroll) {
-            return ResponseEntity.status(HttpStatus.CONFLICT).body("Patient is already enrolled to second appointment");
-        }
-        return ResponseEntity.ok(appointmentService.newSecondAppointment(appointmentId));
+    public ResponseEntity newSecondAppointment(@PathVariable Long appointmentId) throws PatientCantEnrollToSecondAppointment {
+        Appointment appointment = appointmentService.enrollSecondAppointment(appointmentId);
+        return ResponseEntity.ok().body(appointment);
     }
 
     @PatchMapping("/{appointmentNumber}/{appointmentId}")

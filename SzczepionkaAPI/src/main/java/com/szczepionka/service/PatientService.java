@@ -41,4 +41,14 @@ public class PatientService {
         Optional<Patient> patient = patientRepository.findByPesel(pesel);
         return patient.isPresent() ? patient.get() : null;
     }
+
+    public Patient updatePatient(String pesel, PatientDTO patientDTO) {
+        Patient patient = findPatientByPesel(pesel);
+        patient.setEmail(patientDTO.getEmail());
+        patient.setReferralId(patientDTO.getReferralId());
+        patient.setIdNumber(patientDTO.getIdNumber());
+        patient.setPostalCode(patientDTO.getPostalCode());
+
+        return patientRepository.save(patient);
+    }
 }
