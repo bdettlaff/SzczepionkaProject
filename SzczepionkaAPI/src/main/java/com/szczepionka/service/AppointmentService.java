@@ -194,4 +194,14 @@ public class AppointmentService {
         return secondAppointmentStatus == null || secondAppointmentStatus == AppointmentStatus.CANCELLED;
     }
 
+    public Appointment makeFirstAppointmentDone(Long appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        if (appointment.isPresent()) {
+            appointment.get().setFirstAppointmentTime(LocalTime.now().minusHours(1));
+            appointment.get().setFirstAppointmentDate(LocalDate.now());
+            appointment.get().setFirstAppointmentStatus(AppointmentStatus.DONE);
+            return appointmentRepository.save(appointment.get());
+        }
+        return null;
+    }
 }

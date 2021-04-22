@@ -60,4 +60,9 @@ public class AppointmentController {
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/makeTimeFly/1/{appointmentId}")
+    public ResponseEntity makeFirstAppointmentDone(@PathVariable Long appointmentId) {
+        Appointment appointment = appointmentService.makeFirstAppointmentDone(appointmentId);
+        return ResponseEntity.ok().body(appointment);
+    }
 }
