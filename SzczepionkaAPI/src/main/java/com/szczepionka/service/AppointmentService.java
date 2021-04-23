@@ -3,6 +3,8 @@ package com.szczepionka.service;
 import com.szczepionka.entity.Appointment;
 import com.szczepionka.entity.LocationDetails;
 import com.szczepionka.entity.Patient;
+import com.szczepionka.exception.PatientAlreadyExistsException;
+import com.szczepionka.exception.PatientCantEnrollToSecondAppointment;
 import com.szczepionka.model.AppointmentDetailsDTO;
 import com.szczepionka.model.AppointmentStatus;
 import com.szczepionka.model.PatientDTO;
@@ -36,6 +38,40 @@ public class AppointmentService {
         this.emailService = emailService;
     }
 
+    public Appointment enrollFirstAppointment(PatientDTO patientDTO, Long locationId) throws PatientAlreadyExistsException, MessagingException {
+        Appointment appointment;
+        Patient patient = patientService.findPatientByPesel(patientDTO.getPesel());
+
+        if (patient != null && isFirstAppointmentCancelled(patient.getId())) {
+            appointment = updatePatientAndFirstAppointment(patient, patientDTO, locationId);
+        } else if (patient != null && !isFirstAppointmentCancelled(patient.getId())) {
+            throw new PatientAlreadyExistsException("Patient with given PESEL is already enrolled");
+        } else {
+            appointment = newFirstAppointment(patientDTO, locationId);
+        }
+
+        return appointment;
+    }
+
+    private Appointment updatePatientAndFirstAppointment(Patient patient, PatientDTO patientDTO, Long locationId) throws MessagingException {
+        patientService.updatePatient(patient.getPesel(), patientDTO);
+
+        Optional<Appointment> appointment = appointmentRepository.findByPatientId(patient.getId());
+        if (appointment.isPresent()) {
+            appointment.get().setPatientId(patient.getId());
+            appointment.get().setFirstAppointmentDate(createAppointmentDate());
+            appointment.get().setFirstAppointmentTime(createAppointmentTime());
+            appointment.get().setFirstAppointmentStatus(AppointmentStatus.PLANNED);
+            appointment.get().setLocationDetails(getLocationDetailsById(locationId));
+            appointmentRepository.save(appointment.get());
+
+            emailService.sendMail(patient.getId());
+            return appointment.get();
+        }
+
+        return null;
+    }
+
     public Appointment newFirstAppointment(PatientDTO patientDTO, long locationId) throws MessagingException {
         Patient patient = patientService.addPatient(patientDTO);
 
@@ -48,6 +84,26 @@ public class AppointmentService {
                 .build();
         emailService.sendMail(patient.getId());
         return appointmentRepository.save(appointment);
+    }
+
+    public Appointment enrollSecondAppointment(Long appointmentId) throws PatientCantEnrollToSecondAppointment {
+        boolean canEnroll = validateIfPatientCanEnrollSecondAppointment(appointmentId);
+        if (!canEnroll) {
+            throw new PatientCantEnrollToSecondAppointment("Patient is already enrolled to the second appointment");
+        }
+        return newSecondAppointment(appointmentId);
+    }
+
+    public Appointment newSecondAppointment(Long appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        if (appointment.isPresent()) {
+            int timeGapBetweenVaccinations = getTimeGapBetweenVaccinations(appointment.get().getLocationDetails().getVaccinationBrandt());
+            appointment.get().setSecondAppointmentDate(createAppointmentDate().plusDays(timeGapBetweenVaccinations));
+            appointment.get().setSecondAppointmentTime(createAppointmentTime());
+            appointment.get().setSecondAppointmentStatus(AppointmentStatus.PLANNED);
+            return appointmentRepository.save(appointment.get());
+        }
+        return null;
     }
 
     private LocalDate createAppointmentDate() {
@@ -112,18 +168,6 @@ public class AppointmentService {
         return null;
     }
 
-    public Appointment newSecondAppointment(Long appointmentId) {
-        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
-        if (appointment.isPresent()) {
-            int timeGapBetweenVaccinations = getTimeGapBetweenVaccinations(appointment.get().getLocationDetails().getVaccinationBrandt());
-            appointment.get().setSecondAppointmentDate(createAppointmentDate().plusDays(timeGapBetweenVaccinations));
-            appointment.get().setSecondAppointmentTime(createAppointmentTime());
-            appointment.get().setSecondAppointmentStatus(AppointmentStatus.PLANNED);
-            return appointmentRepository.save(appointment.get());
-        }
-        return null;
-    }
-
     private int getTimeGapBetweenVaccinations(VaccinationBrandt vaccinationBrandt) {
         switch (vaccinationBrandt) {
             case PFIZER:
@@ -136,4 +180,28 @@ public class AppointmentService {
         }
     }
 
+    private boolean isFirstAppointmentCancelled(Long patientId) {
+        Optional<Appointment> appointment = appointmentRepository.findByPatientId(patientId);
+        return appointment.isPresent() && appointment.get().getFirstAppointmentStatus() == AppointmentStatus.CANCELLED;
+    }
+
+    public boolean validateIfPatientCanEnrollSecondAppointment(Long appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        return appointment.isPresent() && isSecondAppointmentNullOrCancelled(appointment.get().getSecondAppointmentStatus());
+    }
+
+    private boolean isSecondAppointmentNullOrCancelled(AppointmentStatus secondAppointmentStatus) {
+        return secondAppointmentStatus == null || secondAppointmentStatus == AppointmentStatus.CANCELLED;
+    }
+
+    public Appointment makeFirstAppointmentDone(Long appointmentId) {
+        Optional<Appointment> appointment = appointmentRepository.findById(appointmentId);
+        if (appointment.isPresent()) {
+            appointment.get().setFirstAppointmentTime(LocalTime.now().minusHours(1));
+            appointment.get().setFirstAppointmentDate(LocalDate.now());
+            appointment.get().setFirstAppointmentStatus(AppointmentStatus.DONE);
+            return appointmentRepository.save(appointment.get());
+        }
+        return null;
+    }
 }

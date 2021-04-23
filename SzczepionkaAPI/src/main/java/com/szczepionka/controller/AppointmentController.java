@@ -1,6 +1,8 @@
 package com.szczepionka.controller;
 
 import com.szczepionka.entity.Appointment;
+import com.szczepionka.exception.PatientAlreadyExistsException;
+import com.szczepionka.exception.PatientCantEnrollToSecondAppointment;
 import com.szczepionka.model.AppointmentDetailsDTO;
 import com.szczepionka.model.PatientDTO;
 import com.szczepionka.service.AppointmentService;
@@ -27,13 +29,16 @@ public class AppointmentController {
     }
 
     @PostMapping("/{locationId}")
-    public Appointment newFirstAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId) throws MessagingException {
-        return appointmentService.newFirstAppointment(patientDTO, locationId);
+    public ResponseEntity newFirstAppointment(@RequestBody PatientDTO patientDTO, @PathVariable Long locationId)
+            throws MessagingException, PatientAlreadyExistsException {
+        Appointment appointment = appointmentService.enrollFirstAppointment(patientDTO, locationId);
+        return ResponseEntity.ok().body(appointment);
     }
 
     @PostMapping("/2/{appointmentId}")
-    public Appointment newSecondAppointment(@PathVariable Long appointmentId) {
-        return appointmentService.newSecondAppointment(appointmentId);
+    public ResponseEntity newSecondAppointment(@PathVariable Long appointmentId) throws PatientCantEnrollToSecondAppointment {
+        Appointment appointment = appointmentService.enrollSecondAppointment(appointmentId);
+        return ResponseEntity.ok().body(appointment);
     }
 
     @PatchMapping("/{appointmentNumber}/{appointmentId}")
@@ -55,4 +60,9 @@ public class AppointmentController {
         return ResponseEntity.notFound().build();
     }
 
+    @PostMapping("/makeTimeFly/1/{appointmentId}")
+    public ResponseEntity makeFirstAppointmentDone(@PathVariable Long appointmentId) {
+        Appointment appointment = appointmentService.makeFirstAppointmentDone(appointmentId);
+        return ResponseEntity.ok().body(appointment);
+    }
 }
